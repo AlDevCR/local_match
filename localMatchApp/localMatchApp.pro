@@ -28,12 +28,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     ../log.cpp \
-    log.cpp
+    logIn.cpp
 
 HEADERS += \
         mainwindow.h \
     ../log.h \
-    log.h
+    logIn.h
 
 FORMS += \
         mainwindow.ui

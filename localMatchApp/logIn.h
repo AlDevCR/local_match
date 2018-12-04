@@ -2,11 +2,11 @@
 #include <string>
 
 
-class log
+class logIn
 {
 public:
-  log();
-  ~log();
+  logIn();
+  ~logIn();
 
   int signUp(const std::string user, const std::string password);
 

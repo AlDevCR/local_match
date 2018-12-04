@@ -1,30 +1,30 @@
-#include "log.h"
+#include "logIn.h"
 
 using namespace std;
 
-log::log()
+logIn::logIn()
 {
     //Connect to database.
 }
 
-log::~log()
+logIn::~logIn()
 {
     //disconnect to database.
 }
 
-int log::signUp(const string user, const string password)
+int logIn::signUp(const string user, const string password)
 {
   //Send information to database.
   return 0;
 }
 
-bool log::isEqualPass(const string pass, const string rePass)
+bool logIn::isEqualPass(const string pass, const string rePass)
 {
   //Compare strings and return TRUE for equal.
   return true;
 }
 
-int log::entry(const string user, const string password)
+int logIn::entry(const string user, const string password)
 {
   //search the user and compare password
   return 0;
