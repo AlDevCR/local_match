@@ -5,6 +5,7 @@ class logIn
 {
 private:
   bool isEqualPass(const std::string i_password, const std::string i_repeatedPassword);
+  enum connectionMessage { wrongPassword, goodEntry, doesntExists, ocupatedUser};
 public:
   logIn();
   ~logIn();

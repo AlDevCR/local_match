@@ -1,8 +1,5 @@
-#include "logIn.h"
-#define OCUPATED_USER 3
-#define DONT_EXISTS 2
-#define GOOD_ENTRY 1
-#define WRONG_PASSWORD 0
+#include "Headers/logIn.h"
+
 using namespace std;
 
 logIn::logIn()
@@ -19,21 +16,21 @@ int logIn::signUp(const string i_user, const string i_password, const string i_r
 {
   //Send information to database.
   string userInDatabase="";
-  if(i_user.compare(userInDatabase)==0)
+  if(i_user.compare(userInDatabase) == 0)
     {
       if(isEqualPass(i_password,i_repeatedPassword))
         {
           //Set user and password in table
-          return GOOD_ENTRY;
+          return connectionMessage::goodEntry;
         }
       else
         {
-          return WRONG_PASSWORD;
+          return connectionMessage::wrongPassword;
         }
     }
   else
     {
-      return OCUPATED_USER;
+      return connectionMessage::ocupatedUser;
     }
 }
 
@@ -58,14 +55,14 @@ int logIn::entry(const string i_user, const string i_password)
   string passInDatabase="";
   if(i_user.compare(userInDatabase) != 0)
     {
-      return DONT_EXISTS;
+      return connectionMessage::doesntExists;
     }
   else if (i_password.compare(passInDatabase) != 0)
     {
-      return WRONG_PASSWORD;
+      return connectionMessage::wrongPassword;
     }
   else
     {
-      return GOOD_ENTRY;
+      return connectionMessage::goodEntry;
     }
 }
