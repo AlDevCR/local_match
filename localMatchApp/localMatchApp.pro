@@ -27,13 +27,11 @@ CONFIG += c++14
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    ../log.cpp \
-    logIn.cpp
+        logIn.cpp\
 
 HEADERS += \
         mainwindow.h \
-    ../log.h \
-    logIn.h
+        logIn.h\
 
 FORMS += \
         mainwindow.ui
