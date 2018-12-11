@@ -8,15 +8,15 @@
  * able to develop the signup window
 */
 namespace Ui {
-class SignUp;
+ class SignUp;
 }
 
-class SignUp : public QDialog
+class  SignUp : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit SignUp(QWidget *i_parent = nullptr);
+    explicit  SignUp(QWidget *i_parent = nullptr);
     ~SignUp();
 
 /*!

@@ -8,19 +8,19 @@
  * be able to develop the main screen
 */
 namespace Ui {
-class HomeWindow;
+ class HomeWindow;
 }
 
-class HomeWindow : public QDialog
+class HomeWindow : public  QDialog
 {
     Q_OBJECT
 
 public:
-    explicit HomeWindow(QWidget *i_parent = nullptr);
+    explicit HomeWindow( QWidget *i_parent = nullptr);
     ~HomeWindow();
 
 private:
-    Ui::HomeWindow *ui;
+    Ui:: HomeWindow *ui;
 };
 
 #endif // HOMEWINDOW_H

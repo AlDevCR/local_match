@@ -9,7 +9,7 @@
  * to develop the login window
 */
 namespace Ui {
-class MainWindow;
+ class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *i_parent = nullptr);
+    explicit MainWindow( QWidget *i_parent = nullptr);
     ~MainWindow();
 
 /*!
@@ -26,12 +26,12 @@ public:
 */
 private slots:
 
-    void onButtonSignUpClicked();
+    void  onButtonSignUpClicked();
 
     void onButtonLoginClicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui:: MainWindow *ui;
 
 };
 

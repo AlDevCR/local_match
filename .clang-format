@@ -8,9 +8,9 @@ AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: 'false'
 AllowShortLoopsOnASingleLine: 'false'
 BinPackParameters: 'true'
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Attach
 BreakConstructorInitializersBeforeComma: 'true'
-ColumnLimit: '140'
+ColumnLimit: '100'
 DerivePointerAlignment: 'true'
 IndentCaseLabels: 'true'
 IndentWrappedFunctionNames: 'true'

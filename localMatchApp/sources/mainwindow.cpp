@@ -16,10 +16,10 @@ MainWindow::MainWindow(QWidget *i_parent) :
 {
     const int FIXEDWIDTHMAINWINDOW = 500;
     const int FIXEDHEIGHTMAINWINDOW = 450;
-    ui->setupUi(this);
+     ui->setupUi(this);
     QPixmap pix (":/images/logo.svg");
-    ui->pictureLogo->setPixmap(pix);
-    this->setFixedWidth(FIXEDWIDTHMAINWINDOW);
+     ui->pictureLogo->setPixmap(pix);
+     this->setFixedWidth(FIXEDWIDTHMAINWINDOW);
     this->setFixedHeight(FIXEDHEIGHTMAINWINDOW);
     this->setGeometry(
         QStyle::alignedRect(
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *i_parent) :
     );
     connect(ui->buttonSignUp,SIGNAL(clicked()), this,
             SLOT(onButtonSignUpClicked()));
-    connect(ui->buttonLogin,SIGNAL(clicked()), this,
+     connect(ui->buttonLogin,SIGNAL(clicked()), this,
             SLOT(onButtonLoginClicked()));
 }
 
@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *i_parent) :
  * In this function, the user interface of the login
  * system screen is destroyed
 */
-MainWindow::~MainWindow()
+ MainWindow::~MainWindow()
 {
     delete ui;
 }

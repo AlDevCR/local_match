@@ -13,13 +13,13 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
     const int WIDTHSIZELOGO = 150;
     const int HEIGHTSIZELOGO = 24;
     ui->setupUi(this);
-    QPixmap pixEvent (":/images/eventExample.svg");
-    QPixmap pixUser (":/images/user.svg");
+     QPixmap pixEvent (":/images/eventExample.svg");
+     QPixmap pixUser (":/images/user.svg");
     QPixmap pixLogo (":/images/logo.svg");
-    pixLogo = pixLogo.scaled(WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
+     pixLogo = pixLogo.scaled(WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
                              Qt::SmoothTransformation);
     ui->pictureEvent->setPixmap(pixEvent);
-    ui->pictureUser->setPixmap(pixUser);
+     ui->pictureUser->setPixmap(pixUser);
     ui->pictureLogo->setPixmap(pixLogo);
     ui->labelNameUser->setText("User Name");
     ui->labelNameEvent->setText("New Year Party 2018");
@@ -28,10 +28,10 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
     ui->labelDateEvent->setStyleSheet("font-weight: bold; color: "
                                       "rgb(187, 205, 225);");
     ui->labelHourEvent->setText("18:00 - 23:00");
-    ui->labelHourEvent->setStyleSheet("font-weight: bold; color: "
+     ui->labelHourEvent->setStyleSheet("font-weight: bold; color: "
                                       "rgb(187, 205, 225);");
     ui->labelDescription->setWordWrap(true);
-    ui->labelDescription->setText("So perhaps, you've generated some fancy "
+     ui->labelDescription->setText("So perhaps, you've generated some fancy "
                                   "text, and you're content that you can now "
                                   "copy and paste your fancy text in the "
                                   "comments section of funny cat videos, but "
@@ -45,7 +45,7 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
  * In this function, the user interface of the
  * main system screen is destroyed
 */
-HomeWindow::~HomeWindow()
+HomeWindow:: ~HomeWindow()
 {
     delete ui;
 }
