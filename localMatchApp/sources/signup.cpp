@@ -15,7 +15,7 @@
      const int FIXEDWIDTHSIGNUPWINDOW = 500;
     const int FIXEDHEIGHTSIGNUPWINDOW = 450;
     ui->setupUi(this);
-    ui->lineEditNewUser->setPlaceholderText("Username");
+    ui->lineEditNewUser->setPlaceholderText ( "Username" );
     ui->lineEditNewPassword->setPlaceholderText("Password");
     ui->lineEditNewPasswordCheck->setPlaceholderText("Repeat Password");
     QPixmap pixLogo (":/images/logo.svg");

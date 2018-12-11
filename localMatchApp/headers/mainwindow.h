@@ -9,7 +9,7 @@
  * to develop the login window
 */
 namespace Ui {
- class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow

@@ -11,16 +11,15 @@ namespace Ui {
  class HomeWindow;
 }
 
-class HomeWindow : public  QDialog
-{
-    Q_OBJECT
+class HomeWindow : public QDialog {
+  Q_OBJECT
 
-public:
-    explicit HomeWindow( QWidget *i_parent = nullptr);
-    ~HomeWindow();
+ public:
+  explicit HomeWindow ( QWidget *i_parent = nullptr );
+  ~HomeWindow ( );
 
-private:
-    Ui:: HomeWindow *ui;
+ private:
+  Ui::HomeWindow *ui;
 };
 
 #endif // HOMEWINDOW_H

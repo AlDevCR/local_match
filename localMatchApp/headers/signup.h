@@ -16,13 +16,13 @@ class  SignUp : public QDialog
     Q_OBJECT
 
 public:
-    explicit  SignUp(QWidget *i_parent = nullptr);
-    ~SignUp();
+ explicit SignUp ( QWidget *i_parent = nullptr );
+ ~SignUp ( );
 
-/*!
- * The functions of button actions are declared so
- * they can be used later
-*/
+ /*!
+  * The functions of button actions are declared so
+  * they can be used later
+  */
 private slots:
     void onNewUserButtonClicked();
 

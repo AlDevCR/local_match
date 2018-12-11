@@ -21,7 +21,7 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
     ui->pictureEvent->setPixmap(pixEvent);
      ui->pictureUser->setPixmap(pixUser);
     ui->pictureLogo->setPixmap(pixLogo);
-    ui->labelNameUser->setText("User Name");
+    ui->labelNameUser->setText ( "User Name" );
     ui->labelNameEvent->setText("New Year Party 2018");
     ui->labelNameEvent->setStyleSheet("font-weight: bold;");
     ui->labelDateEvent->setText("05/12/2018");

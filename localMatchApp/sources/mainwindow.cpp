@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *i_parent) :
 {
     const int FIXEDWIDTHMAINWINDOW = 500;
     const int FIXEDHEIGHTMAINWINDOW = 450;
-     ui->setupUi(this);
+    ui->setupUi ( this );
     QPixmap pix (":/images/logo.svg");
      ui->pictureLogo->setPixmap(pix);
      this->setFixedWidth(FIXEDWIDTHMAINWINDOW);
