@@ -6,11 +6,7 @@
  * In this function is created what is necessary
  * to build the main screen of the system
  */
-HomeWindow::HomeWindow ( QWidget *i_parent )
-    : QDialog ( i_parent )
-    , ui ( new Ui::HomeWindow )
-
-{
+HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui::HomeWindow ) {
   const int WIDTHSIZELOGO = 150;
   const int HEIGHTSIZELOGO = 24;
   ui->setupUi ( this );
