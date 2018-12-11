@@ -10,11 +10,7 @@
  * In this function is created what is necessary to
  * build the login screen of the system
  */
-MainWindow::MainWindow ( QWidget *i_parent )
-    : QMainWindow ( i_parent )
-    , ui ( new Ui::MainWindow )
-
-{
+MainWindow::MainWindow ( QWidget *i_parent ) : QMainWindow ( i_parent ), ui ( new Ui::MainWindow ) {
   const int FIXEDWIDTHMAINWINDOW = 500;
   const int FIXEDHEIGHTMAINWINDOW = 450;
   ui->setupUi ( this );

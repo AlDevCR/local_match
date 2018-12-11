@@ -8,11 +8,7 @@
  * In this function is created what is necessary to build
  * the signup screen of the system
  */
-SignUp::SignUp ( QWidget *i_parent )
-    : QDialog ( i_parent )
-    , ui ( new Ui::SignUp )
-
-{
+SignUp::SignUp ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui::SignUp ) {
   const int FIXEDWIDTHSIGNUPWINDOW = 500;
   const int FIXEDHEIGHTSIGNUPWINDOW = 450;
   ui->setupUi ( this );
