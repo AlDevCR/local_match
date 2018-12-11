@@ -6,9 +6,9 @@
 /*!
  * The class of user interface type is created to
  * be able to develop the main screen
-*/
+ */
 namespace Ui {
- class HomeWindow;
+class HomeWindow;
 }
 
 class HomeWindow : public QDialog {
