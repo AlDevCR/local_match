@@ -22,6 +22,8 @@ private slots:
     void onPushButtonPreviousClicked();
     void mousePressEvent(QMouseEvent *event);
 
+    void onPushButtonSubscribeClicked();
+
 private:
     Ui::HomeWindow *ui;
     int index = 1;

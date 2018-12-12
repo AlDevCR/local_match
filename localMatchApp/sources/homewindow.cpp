@@ -17,8 +17,11 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
     ui->pictureUser->setPixmap(pixUser);
     ui->pictureLogo->setPixmap(pixLogo);
     ui->pictureEvent->setPixmap(pixEvent);
+
     ui->labelNameUser->setText("Marcelino Solano");
-    ui->labelNameEvent->setText("New Year Party 2018");
+    nameEvent = "New Year Party 2018";
+    pathImageEvent = ":/images/eventExample1.svg";
+    ui->labelNameEvent->setText(nameEvent);
     ui->labelNameEvent->setStyleSheet("font-weight: bold;");
     ui->labelDateEvent->setText("05/12/2018");
     ui->labelDateEvent->setStyleSheet("font-weight: bold; color: "
@@ -39,6 +42,8 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
             SLOT(onPushButtonNextClicked()));
     connect(ui->pushButtonPrevious,SIGNAL(clicked()), this,
             SLOT(onPushButtonPreviousClicked()));
+    connect(ui->pushButtonSubscribe,SIGNAL(clicked()), this,
+            SLOT(onPushButtonSubscribeClicked()));
 }
 
 HomeWindow::~HomeWindow()
@@ -195,3 +200,9 @@ void HomeWindow::mousePressEvent(QMouseEvent *event)
 }
 
 
+
+void HomeWindow::onPushButtonSubscribeClicked()
+{
+    ui->listWidget->addItem(new QListWidgetItem(QIcon(pathImageEvent),nameEvent));
+    ui->listWidget->setStyleSheet("QListView::item { border-bottom: 1px solid black; padding: 2px; }");
+}
