@@ -245,7 +245,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="pushButtonPrevious">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -261,7 +261,7 @@
     <string>&lt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="pushButtonNext">
    <property name="geometry">
     <rect>
      <x>1150</x>
