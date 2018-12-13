@@ -6,29 +6,22 @@
 #include <QMessageBox>
 #include <QStyle>
 
-MainWindow::MainWindow(QWidget *i_parent) :
-    QMainWindow(i_parent),
-    ui(new Ui::MainWindow)
-{
-    const int FIXEDWIDTHMAINWINDOW = 500;
-    const int FIXEDHEIGHTMAINWINDOW = 450;
-    ui->setupUi(this);
-    QPixmap pix (":/images/logo.svg");
-    ui->pictureLogo->setPixmap(pix);
-    this->setFixedWidth(FIXEDWIDTHMAINWINDOW);
-    this->setFixedHeight(FIXEDHEIGHTMAINWINDOW);
-    this->setGeometry(
-        QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            this->size(),
-            qApp->desktop()->availableGeometry()
-        )
-    );
-    connect(ui->buttonSignUp,SIGNAL(clicked()), this,
-            SLOT(onButtonSignUpClicked()));
-    connect(ui->buttonLogin,SIGNAL(clicked()), this,
-            SLOT(onButtonLoginClicked()));
+/*!
+ * In this function is created what is necessary to
+ * build the login screen of the system
+ */
+MainWindow::MainWindow ( QWidget *i_parent ) : QMainWindow ( i_parent ), ui ( new Ui::MainWindow ) {
+  const int FIXEDWIDTHMAINWINDOW = 500;
+  const int FIXEDHEIGHTMAINWINDOW = 450;
+  ui->setupUi (this);
+  QPixmap pixLogo (":/images/logo.svg");
+  ui->pictureLogo->setPixmap (pixLogo);
+  this->setFixedWidth (FIXEDWIDTHMAINWINDOW);
+  this->setFixedHeight (FIXEDHEIGHTMAINWINDOW);
+  this->setGeometry (QStyle::alignedRect (Qt::LeftToRight, Qt::AlignCenter, this->size (),
+                                            qApp->desktop ()->availableGeometry ()));
+  connect (ui->buttonSignUp, SIGNAL (clicked ()), this, SLOT (onButtonSignUpClicked ()));
+  connect (ui->buttonLogin, SIGNAL (clicked ()), this, SLOT (onButtonLoginClicked ()));
 }
 
 MainWindow::~MainWindow()

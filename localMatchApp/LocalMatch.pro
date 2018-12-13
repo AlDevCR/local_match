@@ -15,12 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
     sources/mainwindow.cpp \
     sources/signup.cpp \
-    sources/homewindow.cpp
+    sources/homewindow.cpp \
+    sources/events.cpp \
+    sources/functions.cpp
 
 HEADERS  += \
     headers/mainwindow.h \
     headers/signup.h \
-    headers/homewindow.h
+    headers/homewindow.h \
+    headers/events.h \
+    headers/functions.h
 
 FORMS    += \
     forms/mainwindow.ui \

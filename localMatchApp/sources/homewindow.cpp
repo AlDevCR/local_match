@@ -2,206 +2,62 @@
 #include "ui_homewindow.h"
 #include <QStyle>
 #include <QFileDialog>
+#include "../headers/functions.h"
+#include "../headers/events.h"
 
-HomeWindow::HomeWindow(QWidget *i_parent) :
-    QDialog(i_parent),
-    ui(new Ui::HomeWindow)
-{
-    const int WIDTHSIZELOGO = 150;
-    const int HEIGHTSIZELOGO = 24;
-    ui->setupUi(this);;
-    UserImage= ":/images/user.svg";
-    QPixmap pixUser (UserImage);
-    QPixmap pixLogo (":/images/logo.svg");
-    QPixmap pixEvent (":/images/eventExample1.svg");
+///@TODO
+/*!
+ * In this function is created what is necessary
+ * to build the main screen of the system
+ */
+HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui::HomeWindow ) {
+  Functions f;
+  Events event = f.SelectEvent(index);
+  const int WIDTHSIZELOGO = 150;
+  const int HEIGHTSIZELOGO = 24;
+  ui->setupUi ( this );
+  QPixmap pixUser ( ":/images/user.svg" );
+  QPixmap pixLogo ( ":/images/logo.svg" );
+  pixLogo = pixLogo.scaled ( WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
+                             Qt::SmoothTransformation );
+  ui->pictureUser->setPixmap ( pixUser );
+  ui->pictureLogo->setPixmap ( pixLogo );
+  ui->labelNameUser->setText ( "User Name" );
 
-
-
-    pixLogo = pixLogo.scaled(WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
-                             Qt::SmoothTransformation);
-    ui->pictureUser->setPixmap(pixUser);
-    ui->pictureLogo->setPixmap(pixLogo);
-    ui->pictureEvent->setPixmap(pixEvent);
-
-    ui->labelNameUser->setText("Marcelino Solano");
-    nameEvent = "New Year Party 2018";
-    pathImageEvent = ":/images/eventExample1.svg";
-    ui->labelNameEvent->setText(nameEvent);
-    ui->labelNameEvent->setStyleSheet("font-weight: bold;");
-    ui->labelDateEvent->setText("05/12/2018");
-    ui->labelDateEvent->setStyleSheet("font-weight: bold; color: "
-                                      "rgb(187, 205, 225);");
-    ui->labelHourEvent->setText("18:00 - 23:00");
-    ui->labelHourEvent->setStyleSheet("font-weight: bold; color: "
-                                      "rgb(187, 205, 225);");
-    ui->labelDescription->setText("So perhaps, you've generated some fancy "
-                                  "text, and you're content that you can now "
-                                  "copy and paste your fancy text in the "
-                                  "comments section of funny cat videos, but "
-                                  "perhaps you're wondering how it's even "
-                                  "possible to change the font of your text? "
-                                  "Is it some sort of hack? Are you copying "
-                                  "and pasting an actual font?");
-    ui->labelDescription->setWordWrap(true);
-    connect(ui->pushButtonNext,SIGNAL(clicked()), this,
-            SLOT(onPushButtonNextClicked()));
-    connect(ui->pushButtonPrevious,SIGNAL(clicked()), this,
-            SLOT(onPushButtonPreviousClicked()));
-    connect(ui->pushButtonSubscribe,SIGNAL(clicked()), this,
-            SLOT(onPushButtonSubscribeClicked()));
-}
-
-HomeWindow::~HomeWindow()
-{
-    delete ui;
-}
-
-void HomeWindow::onPushButtonNextClicked()
-{
-    index = index +1;
-    dateEvent = QString::number(index);
-    switch (index) {
-        case 1:
-        {
-            nameEvent = "New Year Party 2018";
-            //dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample1.svg";
-            break;
-        }
-        case 2:
-        {
-            //ui->labelNameEvent->setText("nameEventddd");
-            nameEvent = "New Year Party fffffffff2018";
-            //dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample2.svg";
-            break;
-        }
-        case 3:
-        {
-            //ui->labelNameEvent->setText("nameEventfdfddddddddddd");
-            nameEvent = "New Year Party rrere2018";
-            //dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample3.svg";
-            break;
-        }
-    }
-    ui->pictureEvent->setPixmap(pathImageEvent);
-    ui->labelNameEvent->setText(nameEvent);
-    ui->labelDateEvent->setText(dateEvent);
-    ui->labelHourEvent->setText(hourEvent);
-    ui->labelDescription->setText(descriptionEvent);
-}
-
-void HomeWindow::onPushButtonPreviousClicked()
-{
-    index = index -1;
-    switch (index) {
-        case 1:
-        {
-            nameEvent = "New Year Party 2018";
-            //ui->labelNameEvent->setText("nameEvent");
-            dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample1.svg";
-            break;
-        }
-        case 2:
-        {
-            //ui->labelNameEvent->setText("nameEventddd");
-            nameEvent = "New Year Party fffffffff2018";
-            dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample2.svg";
-            break;
-        }
-        case 3:
-        {
-            //ui->labelNameEvent->setText("nameEventfdfddddddddddd");
-            //nameEvent = "New Year Party rrere2018";
-            dateEvent = QString::number(index);
-            hourEvent = "18:00 - 23:00";
-            descriptionEvent = "So perhaps, you've generated some fancy "
-                                       "text, and you're content that you can now "
-                                       "copy and paste your fancy text in the "
-                                       "comments section of funny cat videos, but "
-                                       "perhaps you're wondering how it's even "
-                                       "possible to change the font of your text? "
-                                       "Is it some sort of hack? Are you copying "
-                                       "and pasting an actual font?";
-            pathImageEvent = ":/images/eventExample3.svg";
-            break;
-        }
-    }
-    ui->pictureEvent->setPixmap(pathImageEvent);
-    //ui->labelNameEvent->setText(nameEvent);
-    ui->labelDateEvent->setText(dateEvent);
-    ui->labelHourEvent->setText(hourEvent);
-    ui->labelDescription->setText(descriptionEvent);
-}
-
-void HomeWindow::mousePressEvent(QMouseEvent *event)
-{
-    if(totalEvents == 0){
-        nameEvent = "No Data";
-        ui->labelNameEvent->setText(nameEvent);
-    }else if (totalEvents == 1) {
-        ui->pushButtonPrevious->setDisabled(true);
-        ui->pushButtonNext->setDisabled(true);
-    }else if(totalEvents > 1){
-        if(index==1){
-            ui->pushButtonPrevious->setDisabled(true);
-        }else{
-            ui->pushButtonPrevious->setDisabled(false);
-        }
-        if(index==totalEvents){
-            ui->pushButtonNext->setDisabled(true);
-        }else{
-            ui->pushButtonNext->setDisabled(false);
-        }
-    }
+  ui->labelNameEvent->setText (event.getNameEvent());
+  ui->labelDescription->setText (event.getDescriptionEvent());
+  ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+  ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+  ui->pictureEvent->setPixmap (event.getPathImageEvent());
+  eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+  ui->labelEventStatus->setText(eventStatus);
+  ui->labelNameEvent->setStyleSheet ( "font-weight: bold;" );
+  ui->labelEventInitialDate->setStyleSheet (
+      "font-weight: bold; color: "
+      "rgb(187, 205, 225);" );
+  ui->labelEventFinalDate->setStyleSheet (
+      "font-weight: bold; color: "
+      "rgb(187, 205, 225);" );
+  ui->labelDescription->setWordWrap ( true );
+  if(event.getTotalEvents() == 0){
+      ui->labelNameEvent->setText("No Data");
+  }else if (event.getTotalEvents() == 1) {
+      ui->ButtonPrevious->setDisabled(true);
+      ui->ButtonNext->setDisabled(true);
+  }else if(event.getTotalEvents() > 1){
+      if(index==0){
+          ui->ButtonPrevious->setDisabled(true);
+      }else{
+          ui->ButtonPrevious->setDisabled(false);
+      }
+      if(index==(event.getTotalEvents()-1)){
+          ui->ButtonNext->setDisabled(true);
+      }else{
+          ui->ButtonNext->setDisabled(false);
+      }
+  }
+  connect (ui->ButtonNext, SIGNAL (clicked ()), this, SLOT (onButtonNextClicked ()));
+  connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
 }
 
 
@@ -226,4 +82,66 @@ void HomeWindow::on_pushButton_2_clicked()
     int h = ui->pictureUser->height();
     ui->pictureUser->setPixmap(p);
     ui->pictureUser->setPixmap(p.scaled(w,h,Qt::KeepAspectRatio));
+}
+
+void HomeWindow::onButtonPreviousClicked()
+{
+    index--;
+    Functions f;
+    Events event = f.SelectEvent(index);
+    eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+    ui->labelEventStatus->setText(eventStatus);
+    if(event.getTotalEvents() == 0){
+        ui->labelNameEvent->setText("No Data");
+    }else if (event.getTotalEvents() == 1) {
+        ui->ButtonPrevious->setDisabled(true);
+        ui->ButtonNext->setDisabled(true);
+    }else if(event.getTotalEvents() > 1){
+        if(index==0){
+            ui->ButtonPrevious->setDisabled(true);
+        }else{
+            ui->ButtonPrevious->setDisabled(false);
+        }
+        if(index==(event.getTotalEvents()-1)){
+            ui->ButtonNext->setDisabled(true);
+        }else{
+            ui->ButtonNext->setDisabled(false);
+        }
+    }
+    ui->labelNameEvent->setText (event.getNameEvent());
+    ui->labelDescription->setText (event.getDescriptionEvent());
+    ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+    ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+    ui->pictureEvent->setPixmap (event.getPathImageEvent());
+}
+
+void HomeWindow::onButtonNextClicked()
+{
+    index++;
+    Functions f;
+    Events event = f.SelectEvent(index);
+    eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+    ui->labelEventStatus->setText(eventStatus);
+    if(event.getTotalEvents() == 0){
+        ui->labelNameEvent->setText("No Data");
+    }else if (event.getTotalEvents() == 1) {
+        ui->ButtonPrevious->setDisabled(true);
+        ui->ButtonNext->setDisabled(true);
+    }else if(event.getTotalEvents() > 1){
+        if(index==0){
+            ui->ButtonPrevious->setDisabled(true);
+        }else{
+            ui->ButtonPrevious->setDisabled(false);
+        }
+        if(index==(event.getTotalEvents()-1)){
+            ui->ButtonNext->setDisabled(true);
+        }else{
+            ui->ButtonNext->setDisabled(false);
+        }
+    }
+    ui->labelNameEvent->setText (event.getNameEvent());
+    ui->labelDescription->setText (event.getDescriptionEvent());
+    ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+    ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+    ui->pictureEvent->setPixmap (event.getPathImageEvent());
 }

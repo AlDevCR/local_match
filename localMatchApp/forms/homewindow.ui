@@ -98,7 +98,7 @@
      <string>Subscribe</string>
     </property>
    </widget>
-   <widget class="QLabel" name="labelDateEvent">
+   <widget class="QLabel" name="labelEventInitialDate">
     <property name="geometry">
      <rect>
       <x>390</x>
@@ -111,13 +111,13 @@
      <string notr="true">color: rgb(187, 205, 225);</string>
     </property>
     <property name="text">
-     <string>Name of the event</string>
+     <string>Initial Date</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="labelHourEvent">
+   <widget class="QLabel" name="labelEventFinalDate">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -130,23 +130,26 @@
      <string notr="true">color: rgb(187, 205, 225);</string>
     </property>
     <property name="text">
-     <string>Hour of the event</string>
+     <string>Final Date</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="labelEventStatus">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>760</x>
       <y>0</y>
-      <width>91</width>
+      <width>121</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>1/4 of events</string>
+     <string>Events</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
@@ -258,7 +261,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButtonPrevious">
+  <widget class="QPushButton" name="ButtonPrevious">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -274,7 +277,7 @@
     <string>&lt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButtonNext">
+  <widget class="QPushButton" name="ButtonNext">
    <property name="geometry">
     <rect>
      <x>1150</x>
