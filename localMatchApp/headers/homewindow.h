@@ -18,8 +18,18 @@ class HomeWindow : public QDialog {
   explicit HomeWindow ( QWidget *i_parent = nullptr );
   ~HomeWindow ( );
 
- private:
+/*!
+ * The functions of button actions are declared so
+ * they can be used later
+ */
+private slots:
+    void onButtonPreviousClicked();
+    void onButtonNextClicked();
+
+private:
   Ui::HomeWindow *ui;
+  int index = 0;
+  QString eventStatus;
 };
 
 #endif // HOMEWINDOW_H

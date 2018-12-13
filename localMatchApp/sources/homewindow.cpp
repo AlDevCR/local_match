@@ -1,44 +1,61 @@
 #include "../headers/homewindow.h"
 #include <QStyle>
 #include "ui_homewindow.h"
-
+#include "../headers/functions.h"
+#include "../headers/events.h"
+///@TODO
 /*!
  * In this function is created what is necessary
  * to build the main screen of the system
  */
 HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui::HomeWindow ) {
+  Functions f;
+  Events event = f.SelectEvent(index);
   const int WIDTHSIZELOGO = 150;
   const int HEIGHTSIZELOGO = 24;
   ui->setupUi ( this );
-  QPixmap pixEvent ( ":/images/eventExample.svg" );
   QPixmap pixUser ( ":/images/user.svg" );
   QPixmap pixLogo ( ":/images/logo.svg" );
   pixLogo = pixLogo.scaled ( WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
                              Qt::SmoothTransformation );
-  ui->pictureEvent->setPixmap ( pixEvent );
   ui->pictureUser->setPixmap ( pixUser );
   ui->pictureLogo->setPixmap ( pixLogo );
   ui->labelNameUser->setText ( "User Name" );
-  ui->labelNameEvent->setText ( "New Year Party 2018" );
+
+  ui->labelNameEvent->setText (event.getNameEvent());
+  ui->labelDescription->setText (event.getDescriptionEvent());
+  ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+  ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+  ui->pictureEvent->setPixmap (event.getPathImageEvent());
+  eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+  ui->labelEventStatus->setText(eventStatus);
   ui->labelNameEvent->setStyleSheet ( "font-weight: bold;" );
-  ui->labelDateEvent->setText ( "05/12/2018" );
-  ui->labelDateEvent->setStyleSheet (
+  ui->labelEventInitialDate->setStyleSheet (
       "font-weight: bold; color: "
       "rgb(187, 205, 225);" );
-  ui->labelHourEvent->setText ( "18:00 - 23:00" );
-  ui->labelHourEvent->setStyleSheet (
+  ui->labelEventFinalDate->setStyleSheet (
       "font-weight: bold; color: "
       "rgb(187, 205, 225);" );
   ui->labelDescription->setWordWrap ( true );
-  ui->labelDescription->setText (
-      "So perhaps, you've generated some fancy "
-      "text, and you're content that you can now "
-      "copy and paste your fancy text in the "
-      "comments section of funny cat videos, but "
-      "perhaps you're wondering how it's even "
-      "possible to change the font of your text? "
-      "Is it some sort of hack? Are you copying "
-      "and pasting an actual font?" );
+  if(event.getTotalEvents() == 0){
+      ui->labelNameEvent->setText("No Data");
+  }else if (event.getTotalEvents() == 1) {
+      ui->ButtonPrevious->setDisabled(true);
+      ui->ButtonNext->setDisabled(true);
+  }else if(event.getTotalEvents() > 1){
+      if(index==0){
+          ui->ButtonPrevious->setDisabled(true);
+      }else{
+          ui->ButtonPrevious->setDisabled(false);
+      }
+      if(index==(event.getTotalEvents()-1)){
+          ui->ButtonNext->setDisabled(true);
+      }else{
+          ui->ButtonNext->setDisabled(false);
+      }
+  }
+  connect (ui->ButtonNext, SIGNAL (clicked ()), this, SLOT (onButtonNextClicked ()));
+  connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
 }
 
 /*!
@@ -47,4 +64,66 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui
  */
 HomeWindow::~HomeWindow ( ) {
   delete ui;
+}
+
+void HomeWindow::onButtonPreviousClicked()
+{
+    index--;
+    Functions f;
+    Events event = f.SelectEvent(index);
+    eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+    ui->labelEventStatus->setText(eventStatus);
+    if(event.getTotalEvents() == 0){
+        ui->labelNameEvent->setText("No Data");
+    }else if (event.getTotalEvents() == 1) {
+        ui->ButtonPrevious->setDisabled(true);
+        ui->ButtonNext->setDisabled(true);
+    }else if(event.getTotalEvents() > 1){
+        if(index==0){
+            ui->ButtonPrevious->setDisabled(true);
+        }else{
+            ui->ButtonPrevious->setDisabled(false);
+        }
+        if(index==(event.getTotalEvents()-1)){
+            ui->ButtonNext->setDisabled(true);
+        }else{
+            ui->ButtonNext->setDisabled(false);
+        }
+    }
+    ui->labelNameEvent->setText (event.getNameEvent());
+    ui->labelDescription->setText (event.getDescriptionEvent());
+    ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+    ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+    ui->pictureEvent->setPixmap (event.getPathImageEvent());
+}
+
+void HomeWindow::onButtonNextClicked()
+{
+    index++;
+    Functions f;
+    Events event = f.SelectEvent(index);
+    eventStatus = QString::number(index+1)+"/"+QString::number(event.getTotalEvents())+" of events";
+    ui->labelEventStatus->setText(eventStatus);
+    if(event.getTotalEvents() == 0){
+        ui->labelNameEvent->setText("No Data");
+    }else if (event.getTotalEvents() == 1) {
+        ui->ButtonPrevious->setDisabled(true);
+        ui->ButtonNext->setDisabled(true);
+    }else if(event.getTotalEvents() > 1){
+        if(index==0){
+            ui->ButtonPrevious->setDisabled(true);
+        }else{
+            ui->ButtonPrevious->setDisabled(false);
+        }
+        if(index==(event.getTotalEvents()-1)){
+            ui->ButtonNext->setDisabled(true);
+        }else{
+            ui->ButtonNext->setDisabled(false);
+        }
+    }
+    ui->labelNameEvent->setText (event.getNameEvent());
+    ui->labelDescription->setText (event.getDescriptionEvent());
+    ui->labelEventInitialDate->setText (event.getInitialDateEvent());
+    ui->labelEventFinalDate->setText (event.getFinalDateEvent());
+    ui->pictureEvent->setPixmap (event.getPathImageEvent());
 }
