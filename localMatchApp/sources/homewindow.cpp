@@ -1,6 +1,7 @@
 #include "../headers/homewindow.h"
 #include "ui_homewindow.h"
 #include <QStyle>
+#include <QFileDialog>
 
 HomeWindow::HomeWindow(QWidget *i_parent) :
     QDialog(i_parent),
@@ -9,9 +10,13 @@ HomeWindow::HomeWindow(QWidget *i_parent) :
     const int WIDTHSIZELOGO = 150;
     const int HEIGHTSIZELOGO = 24;
     ui->setupUi(this);;
-    QPixmap pixUser (":/images/user.svg");
+    UserImage= ":/images/user.svg";
+    QPixmap pixUser (UserImage);
     QPixmap pixLogo (":/images/logo.svg");
     QPixmap pixEvent (":/images/eventExample1.svg");
+
+
+
     pixLogo = pixLogo.scaled(WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
                              Qt::SmoothTransformation);
     ui->pictureUser->setPixmap(pixUser);
@@ -205,4 +210,20 @@ void HomeWindow::onPushButtonSubscribeClicked()
 {
     ui->listWidget->addItem(new QListWidgetItem(QIcon(pathImageEvent),nameEvent));
     ui->listWidget->setStyleSheet("QListView::item { border-bottom: 1px solid black; padding: 2px; }");
+}
+
+void HomeWindow::on_pushButton_2_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpeg *.bmt)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QPixmap p = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                        "C:/",
+                                                        tr("Images (*.png *.xpm *.jpeg *.bmp)"));
+    //QPixmap p (":/images/gay.bmp");
+
+    int w = ui->pictureUser->width();
+    int h = ui->pictureUser->height();
+    ui->pictureUser->setPixmap(p);
+    ui->pictureUser->setPixmap(p.scaled(w,h,Qt::KeepAspectRatio));
 }

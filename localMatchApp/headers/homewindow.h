@@ -24,6 +24,8 @@ private slots:
 
     void onPushButtonSubscribeClicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::HomeWindow *ui;
     int index = 1;
@@ -33,6 +35,7 @@ private:
     QString hourEvent;
     QString descriptionEvent;
     QString pathImageEvent;
+    QString UserImage;
 };
 
 #endif // HOMEWINDOW_H
