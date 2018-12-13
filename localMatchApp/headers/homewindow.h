@@ -28,6 +28,10 @@ private slots:
 
 private:
   Ui::HomeWindow *ui;
+  const int NOEVENTS = 0;
+  const int FIRSTEVENT = 0;
+  const int OPERATIONONE = 1;
+  const int ONEEVENT = 1;
   int index = 0;
   QString eventStatus;
 };

@@ -2,8 +2,6 @@
 <qresource>
     <file>images/logo.svg</file>
     <file>images/user.svg</file>
-    <file>images/eventExample1.svg</file>
-    <file>images/eventExample2.svg</file>
-    <file>images/eventExample3.svg</file>
+    <file>images/eventExample.svg</file>
 </qresource>
 </RCC>
