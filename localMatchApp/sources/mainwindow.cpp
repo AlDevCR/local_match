@@ -1,10 +1,10 @@
 #include "../headers/mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../headers/signup.h"
-#include "../headers/homewindow.h"
 #include "QDesktopWidget"
 #include <QMessageBox>
 #include <QStyle>
+#include "../headers/homewindow.h"
 
 /*!
  * In this function is created what is necessary to
@@ -42,6 +42,5 @@ void MainWindow::onButtonLoginClicked()
     HomeWindow homeWindow;
     homeWindow.setModal(true);
     homeWindow.exec();
-
 }
 

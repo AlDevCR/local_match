@@ -58,7 +58,10 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui
   connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
 }
 
-
+HomeWindow::~HomeWindow()
+{
+  delete ui;
+}
 
 void HomeWindow::onPushButtonSubscribeClicked()
 {
