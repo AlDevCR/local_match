@@ -10,8 +10,7 @@
  * to build the main screen of the system
  */
 HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui::HomeWindow ) {
-  Functions f;
-  Events event = f.SelectEvent(index);
+  event = f.SelectEvent(index);
   const int WIDTHSIZELOGO = 150;
   const int HEIGHTSIZELOGO = 24;
   ui->setupUi (this);
@@ -19,15 +18,21 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui
   QPixmap pixLogo (":/images/logo.svg");
   pixLogo = pixLogo.scaled ( WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
                              Qt::SmoothTransformation );
+  nameEvent = event.getNameEvent();
+  descriptionEvent= event.getDescriptionEvent();
+  initialDateEvent=event.getInitialDateEvent();
+  finalDateEvent=event.getFinalDateEvent();
+  pathImageEvent = event.getPathImageEvent();
+  eventStatus = QString::number(index+OPERATIONONE)+"/"+QString::number(event.getTotalEvents())+" of events";
+
   ui->pictureUser->setPixmap (pixUser);
   ui->pictureLogo->setPixmap (pixLogo);
   ui->labelNameUser->setText ("User Name");
-  ui->labelNameEvent->setText (event.getNameEvent());
-  ui->labelDescription->setText (event.getDescriptionEvent());
-  ui->labelEventInitialDate->setText (event.getInitialDateEvent());
-  ui->labelEventFinalDate->setText (event.getFinalDateEvent());
-  ui->pictureEvent->setPixmap (event.getPathImageEvent());
-  eventStatus = QString::number(index+OPERATIONONE)+"/"+QString::number(event.getTotalEvents())+" of events";
+  ui->labelNameEvent->setText (nameEvent);
+  ui->labelDescription->setText (descriptionEvent);
+  ui->labelEventInitialDate->setText (initialDateEvent);
+  ui->labelEventFinalDate->setText (finalDateEvent);
+  ui->pictureEvent->setPixmap (pathImageEvent);
   ui->labelEventStatus->setText(eventStatus);
   ui->labelNameEvent->setStyleSheet ("font-weight: bold;");
   ui->labelEventInitialDate->setStyleSheet (
@@ -56,6 +61,7 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( new Ui
   }
   connect (ui->ButtonNext, SIGNAL (clicked ()), this, SLOT (onButtonNextClicked ()));
   connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
+  connect (ui->pushButtonSubscribe, SIGNAL (clicked ()), this, SLOT (onPushButtonSubscribeClicked ()));
 }
 
 HomeWindow::~HomeWindow()
@@ -69,27 +75,10 @@ void HomeWindow::onPushButtonSubscribeClicked()
     ui->listWidget->setStyleSheet("QListView::item { border-bottom: 1px solid black; padding: 2px; }");
 }
 
-void HomeWindow::on_pushButton_2_clicked()
-{
-    QFileDialog dialog(this);
-    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpeg *.bmt)"));
-    dialog.setViewMode(QFileDialog::Detail);
-    QPixmap p = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                        "C:/",
-                                                        tr("Images (*.png *.xpm *.jpeg *.bmp)"));
-    //QPixmap p (":/images/gay.bmp");
-
-    int w = ui->pictureUser->width();
-    int h = ui->pictureUser->height();
-    ui->pictureUser->setPixmap(p);
-    ui->pictureUser->setPixmap(p.scaled(w,h,Qt::KeepAspectRatio));
-}
 
 void HomeWindow::onButtonPreviousClicked()
 {
     index--;
-    Functions f;
-    Events event = f.SelectEvent(index);
     eventStatus = QString::number(index+OPERATIONONE)+"/"+QString::number(event.getTotalEvents())+" of events";
     ui->labelEventStatus->setText(eventStatus);
     if(event.getTotalEvents() == NOEVENTS){
@@ -119,8 +108,6 @@ void HomeWindow::onButtonPreviousClicked()
 void HomeWindow::onButtonNextClicked()
 {
     index++;
-    Functions f;
-    Events event = f.SelectEvent(index);
     eventStatus = QString::number(index+OPERATIONONE)+"/"+QString::number(event.getTotalEvents())+" of events";
     ui->labelEventStatus->setText(eventStatus);
     if(event.getTotalEvents() == NOEVENTS){

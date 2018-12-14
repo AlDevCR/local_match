@@ -2,6 +2,8 @@
 #define HOMEWINDOW_H
 
 #include <QDialog>
+#include "events.h"
+#include "functions.h"
 
 namespace Ui {
 class HomeWindow;
@@ -24,9 +26,9 @@ private slots:
     void onButtonPreviousClicked();
     void onButtonNextClicked();
     void onPushButtonSubscribeClicked();
-    void on_pushButton_2_clicked();
 
 private:
+
   Ui::HomeWindow *ui;
   const int NOEVENTS = 0;
   const int FIRSTEVENT = 0;
@@ -35,11 +37,13 @@ private:
   int index = 0;
   QString eventStatus;
   QString nameEvent;
-  QString dateEvent;
-  QString hourEvent;
+  QString initialDateEvent;
+  QString finalDateEvent;
   QString descriptionEvent;
   QString pathImageEvent;
-  QString UserImage;
+  QString userImage;
+  Functions f;
+  Events event;
 };
 
 #endif // HOMEWINDOW_H

@@ -25,10 +25,12 @@ public:
  private slots:
 
     void onButtonSignUpClicked();
-
     void onButtonLoginClicked();
 
+
+
 private:
+
     Ui::MainWindow *ui;
 
 };

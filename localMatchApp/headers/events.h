@@ -69,6 +69,7 @@ public:
      */
     void setPathImageEvent(QString i_valuePathImageEvent);
     QString getPathImageEvent();
+
 };
 
 #endif // EVENTS_H

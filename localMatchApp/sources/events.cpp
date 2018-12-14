@@ -1,6 +1,8 @@
 #include "../headers/events.h"
 
 Events::Events(){
+
+    idEvent=0;
 }
 
 /*!
