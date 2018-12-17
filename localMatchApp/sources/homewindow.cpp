@@ -75,7 +75,6 @@ void HomeWindow::onPushButtonSubscribeClicked()
     ui->listWidget->setStyleSheet("QListView::item { border-bottom: 1px solid black; padding: 2px; }");
 }
 
-
 void HomeWindow::onButtonPreviousClicked()
 {
     index--;

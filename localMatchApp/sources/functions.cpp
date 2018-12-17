@@ -1,6 +1,5 @@
 #include "../headers/functions.h"
 
-
 Functions::Functions(){
 }
 

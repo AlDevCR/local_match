@@ -28,7 +28,6 @@ private slots:
     void onPushButtonSubscribeClicked();
 
 private:
-
   Ui::HomeWindow *ui;
   const int NOEVENTS = 0;
   const int FIRSTEVENT = 0;

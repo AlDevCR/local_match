@@ -16,8 +16,6 @@ public:
     explicit MainWindow(QWidget *i_parent = nullptr);
     ~MainWindow();
 
-
-
  /*!
   * The functions of button actions are declared so
   * they can be used later
