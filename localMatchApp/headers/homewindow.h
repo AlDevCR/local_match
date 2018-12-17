@@ -2,8 +2,12 @@
 #define HOMEWINDOW_H
 
 #include <QDialog>
-#include "events.h"
-#include "functions.h"
+#include "classevent.h"
+
+/*!
+ * The class of user interface type is created to
+ * be able to develop the main screen
+ */
 
 namespace Ui {
 class HomeWindow;
@@ -12,7 +16,6 @@ class HomeWindow;
 class HomeWindow : public QDialog
 {
     Q_OBJECT
-    QTimer *timer;
 
 public:
     explicit HomeWindow(QWidget *i_parent = nullptr);
@@ -31,6 +34,9 @@ private slots:
      * The function when the user click the button of next event is declare
      */
     void onButtonNextClicked();
+    /*!
+     * The function when the user click the button of Subscribe is declare
+     */
     void onPushButtonSubscribeClicked();
 
 private:
@@ -52,14 +58,8 @@ private:
   int indexOfCarousel;
   /*! Declaration of the variable that save the value that informs the user what is the current event */
   QString eventStatus;
-  QString nameEvent;
-  QString initialDateEvent;
-  QString finalDateEvent;
-  QString descriptionEvent;
-  QString pathImageEvent;
-  QString userImage;
-  Functions f;
-  Events event;
+  ClassEvent event;
+
 };
 
 #endif // HOMEWINDOW_H

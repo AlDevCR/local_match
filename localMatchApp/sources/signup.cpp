@@ -15,9 +15,7 @@ SignUp::SignUp(QWidget *i_parent) :
     const int FIXEDWIDTHSIGNUPWINDOW = 500;
     const int FIXEDHEIGHTSIGNUPWINDOW = 450;
     ui->setupUi(this);
-    ui->lineEditNewUser->setPlaceholderText("Username");
-    ui->lineEditNewPassword->setPlaceholderText("Password");
-    ui->lineEditNewPasswordCheck->setPlaceholderText("Repeat Password");
+    ///@TODO Remove this image from a local directory and store them in the DB
     QPixmap pixLogo (":/images/logo.svg");
     ui->pictureLogo->setPixmap(pixLogo);
     this->setFixedWidth(FIXEDWIDTHSIGNUPWINDOW);
@@ -34,10 +32,20 @@ SignUp::SignUp(QWidget *i_parent) :
             SLOT(onNewUserButtonClicked()));
 }
 
+/*!
+ * In this function, the user interface of the signup
+ * system screen is destroyed
+ */
+
 SignUp::~SignUp()
 {
     delete ui;
 }
+
+/*!
+ * In this function, if the user clicks the button of new user,
+ * a message alert of success appears
+ */
 
 void SignUp::onNewUserButtonClicked()
 {

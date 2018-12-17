@@ -1,10 +1,10 @@
-#include "../headers/mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../headers/signup.h"
+#include "signup.h"
 #include "QDesktopWidget"
 #include <QMessageBox>
 #include <QStyle>
-#include "../headers/homewindow.h"
+#include "homewindow.h"
 
 /*!
  * In this function is created what is necessary to
@@ -25,10 +25,20 @@ MainWindow::MainWindow ( QWidget *i_parent ) : QMainWindow ( i_parent ), ui ( ne
   connect (ui->buttonLogin, SIGNAL (clicked ()), this, SLOT (onButtonLoginClicked ()));
 }
 
+/*!
+ * In this function, the user interface of the login
+ * system screen is destroyed
+ */
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+/*!
+ * In this function, if the user clicks the button of signup,
+ * the registration window opens
+ */
 
 void MainWindow::onButtonSignUpClicked()
 {
@@ -36,6 +46,11 @@ void MainWindow::onButtonSignUpClicked()
     signUpWindow.setModal(true);
     signUpWindow.exec();
 }
+
+/*!
+ * In this function, if the user clicks the button of login,
+ * the home window opens
+ */
 
 void MainWindow::onButtonLoginClicked()
 {

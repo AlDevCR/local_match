@@ -3,6 +3,11 @@
 
 #include <QDialog>
 
+/*!
+ * The class of user interface type is created to be
+ * able to develop the signup window
+ */
+
 namespace Ui {
 class SignUp;
 }

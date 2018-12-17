@@ -1,4 +1,4 @@
-#include "../headers/functionsevent.h"
+#include "functionsevent.h"
 
 FunctionsEvent::FunctionsEvent(){
 }

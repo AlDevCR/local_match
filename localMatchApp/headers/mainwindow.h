@@ -1,8 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QLineEdit>
+#include <QMainWindow>
+
+/*!
+ * The class of user interface type is created to be able
+ * to develop the login window
+ */
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +35,9 @@ public:
      * The function when the user click the button to log in is declare
      */
     void onButtonLoginClicked ( );
+
+    private:
+    Ui::MainWindow *ui;
 
 };
 
