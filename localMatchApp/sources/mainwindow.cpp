@@ -14,6 +14,7 @@ MainWindow::MainWindow ( QWidget *i_parent ) : QMainWindow ( i_parent ), ui ( ne
   const int FIXEDWIDTHMAINWINDOW = 500;
   const int FIXEDHEIGHTMAINWINDOW = 450;
   ui->setupUi (this);
+  ///@TODO Remove this image from a local directory and store them in the DB
   QPixmap pixLogo (":/images/logo.svg");
   ui->pictureLogo->setPixmap (pixLogo);
   this->setFixedWidth (FIXEDWIDTHMAINWINDOW);

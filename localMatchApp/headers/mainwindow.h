@@ -21,15 +21,15 @@ public:
   * they can be used later
   */
  private slots:
+    /*!
+     * The function when the user click the button to sign up is declare
+     */
+    void onButtonSignUpClicked ( );
 
-    void onButtonSignUpClicked();
-    void onButtonLoginClicked();
-
-
-
-private:
-
-    Ui::MainWindow *ui;
+    /*!
+     * The function when the user click the button to log in is declare
+     */
+    void onButtonLoginClicked ( );
 
 };
 

@@ -1,9 +1,13 @@
-#include "../headers/signup.h"
+#include "signup.h"
 #include "ui_signup.h"
 #include "QDesktopWidget"
 #include <QMessageBox>
 #include <QStyle>
 
+/*!
+ * In this function is created what is necessary to build
+ * the signup screen of the system
+ */
 SignUp::SignUp(QWidget *i_parent) :
     QDialog(i_parent),
     ui(new Ui::SignUp)

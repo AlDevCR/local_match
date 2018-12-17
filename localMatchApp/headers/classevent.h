@@ -8,17 +8,25 @@
  * be able to develop the functions
  * to manage the variables of the event
  */
-class Events
+class ClassEvent
 {
 public:
-    Events();
+    ClassEvent();
 
+    /*! Declaration of the variable that saves the id of the event */
     int idEvent;
+    /*! Declaration of the variable that saves the total of the events */
     int totalEvents;
+    /*! Declaration of the variable that saves the name of the event */
     QString nameEvent;
+    /*! Declaration of the variable that saves the description of the event */
     QString descriptionEvent;
+    /*! Declaration of the variable that saves the initial date of the event */
     QString initialDateEvent;
+    /*! Declaration of the variable that saves the final date of the event */
     QString finalDateEvent;
+    /*! Declaration of the variable that saves the path of the image of the event */
+    ///@TODO Change the name of the variable to imageEvent when the database is ready
     QString pathImageEvent;
 
     /*!

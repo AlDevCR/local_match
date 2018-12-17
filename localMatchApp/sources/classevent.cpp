@@ -1,17 +1,23 @@
-#include "../headers/events.h"
+#include "classevent.h"
 
-Events::Events(){
-    idEvent=0;
+ClassEvent::ClassEvent(){
+    idEvent = 0;
+    totalEvents = 0;
+    nameEvent = "";
+    descriptionEvent = "";
+    initialDateEvent = "";
+    finalDateEvent = "";
+    pathImageEvent = "";
 }
 
 /*!
  * The functions to set the id of the event
  * and get the id by the database
  */
-void Events::setIdEvent(int i_valueIdEvent){
+void ClassEvent::setIdEvent(int i_valueIdEvent){
     idEvent = i_valueIdEvent;
 }
-int Events::getIdEvent(){
+int ClassEvent::getIdEvent(){
     return idEvent;
 }
 
@@ -19,10 +25,10 @@ int Events::getIdEvent(){
  * The functions to set the total of events
  * and get the total of events by the database
  */
-void Events::setTotalEvents(int i_valueTotalEvents){
+void ClassEvent::setTotalEvents(int i_valueTotalEvents){
     totalEvents = i_valueTotalEvents;
 }
-int Events::getTotalEvents(){
+int ClassEvent::getTotalEvents(){
     return totalEvents;
 }
 
@@ -30,10 +36,10 @@ int Events::getTotalEvents(){
  * The functions to set the name of the event
  * and get the name by the database
  */
-void Events::setNameEvent(QString i_valueNameEvent){
+void ClassEvent::setNameEvent(QString i_valueNameEvent){
     nameEvent = i_valueNameEvent;
 }
-QString Events::getNameEvent(){
+QString ClassEvent::getNameEvent(){
     return nameEvent;
 }
 
@@ -41,10 +47,10 @@ QString Events::getNameEvent(){
  * The functions to set the description of the event
  * and get the description by the database
  */
-void Events::setDescriptionEvent(QString i_valueDescriptionEvent){
+void ClassEvent::setDescriptionEvent(QString i_valueDescriptionEvent){
     descriptionEvent = i_valueDescriptionEvent;
 }
-QString Events::getDescriptionEvent(){
+QString ClassEvent::getDescriptionEvent(){
     return descriptionEvent;
 }
 
@@ -52,10 +58,10 @@ QString Events::getDescriptionEvent(){
  * The functions to set the initial date of the event
  * and get the initial date by the database
  */
-void Events::setInitialDateEvent(QString i_valueInitialDateEvent){
+void ClassEvent::setInitialDateEvent(QString i_valueInitialDateEvent){
     initialDateEvent = i_valueInitialDateEvent;
 }
-QString Events::getInitialDateEvent(){
+QString ClassEvent::getInitialDateEvent(){
     return initialDateEvent;
 }
 
@@ -63,10 +69,10 @@ QString Events::getInitialDateEvent(){
  * The functions to set the final date of the event
  * and get the final date by the database
  */
-void Events::setFinalDateEvent(QString i_valueFinalDateEvent){
+void ClassEvent::setFinalDateEvent(QString i_valueFinalDateEvent){
     finalDateEvent = i_valueFinalDateEvent;
 }
-QString Events::getFinalDateEvent(){
+QString ClassEvent::getFinalDateEvent(){
     return finalDateEvent;
 }
 
@@ -74,9 +80,9 @@ QString Events::getFinalDateEvent(){
  * The functions to set the path of the image of the event
  * and get the path by the database
  */
-void Events::setPathImageEvent(QString i_valuePathImageEvent){
+void ClassEvent::setPathImageEvent(QString i_valuePathImageEvent){
     pathImageEvent = i_valuePathImageEvent;
 }
-QString Events::getPathImageEvent(){
+QString ClassEvent::getPathImageEvent(){
     return pathImageEvent;
 }
