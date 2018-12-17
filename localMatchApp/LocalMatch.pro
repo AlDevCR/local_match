@@ -16,15 +16,15 @@ SOURCES += main.cpp\
     sources/mainwindow.cpp \
     sources/signup.cpp \
     sources/homewindow.cpp \
-    sources/events.cpp \
-    sources/functions.cpp
+    sources/functionsevent.cpp \
+    sources/classevent.cpp
 
 HEADERS  += \
     headers/mainwindow.h \
     headers/signup.h \
     headers/homewindow.h \
-    headers/events.h \
-    headers/functions.h
+    headers/functionsevent.h \
+    headers/classevent.h
 
 FORMS    += \
     forms/mainwindow.ui \
