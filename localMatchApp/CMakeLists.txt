@@ -1,8 +1,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
 # Project name and language of it
-PROJECT(local_match
-  LANGUAGES CXX)
+PROJECT(local_match)
+
+# Enable standard C++ 14 compiler
+SET(CMAKE_CXX_STANDARD 14)
 
 # Find includes in corresponding build directories
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -48,4 +50,55 @@ ADD_EXECUTABLE(local_match ${code_SOURCES}
   ${code_FORMS_HEADERS}
   ${code_RESOURCES_RCC})
 
-TARGET_LINK_LIBRARIES(local_match Qt5::Widgets)
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} Qt5::Widgets)
+
+###################################################################
+# Gtest section
+
+# Create a variable with the name of the project and "_test"
+SET(TEST_LOCAL_MATCH ${PROJECT_NAME}_test)
+
+# Define the code language as C++ 14
+ADD_DEFINITIONS(-DGTEST_LANGUAGE_CXX14)
+
+# Search for a package required for executing gtest
+find_package(Threads REQUIRED)
+
+# Set the direction of the gtest repository
+IF ($ENV{GOOGLETEST_DIR})
+		SET(GOOGLETEST_DIR $ENV{GOOGLETEST_DIR})
+ELSE ()
+		MESSAGE(WARNING "Using googletest src dir specified at Qt Creator wizard")
+		SET(GOOGLETEST_DIR "/home/hotrebor/googletest")
+ENDIF ()
+
+# If it finds the gtest files, put it in a variable.
+IF (EXISTS ${GOOGLETEST_DIR})
+		SET(GTestSrc ${GOOGLETEST_DIR}/googletest)
+		SET(GMockSrc ${GOOGLETEST_DIR}/googlemock)
+ELSE ()
+		MESSAGE( FATAL_ERROR "No googletest src dir found - set GOOGLETEST_DIR to enable!")
+ENDIF ()
+INCLUDE_DIRECTORIES(${GTestSrc} ${GTestSrc}/include ${GMockSrc} ${GMockSrc}/include)
+
+# Find the QT widgets package
+FIND_PACKAGE(Qt5Widgets CONFIG REQUIRED)
+
+# Set a list of files with the name test_FILES that includes .h files
+FILE(GLOB test_FILES
+	"test/*.cpp")
+
+# Include the .cpp files without the main of the main project
+FILE(GLOB test_SOURCES
+	"sources/*.cpp")
+
+ADD_EXECUTABLE(${TEST_LOCAL_MATCH} ${test_FILES}
+	${GTestSrc}/src/gtest-all.cc
+	${GMockSrc}/src/gmock-all.cc
+	${test_SOURCES}
+	${code_HEADERS_MOC}
+	)
+
+ADD_TEST(${TEST_LOCAL_MATCH} COMMAND ${TEST_LOCAL_MATCH})
+TARGET_LINK_LIBRARIES(${TEST_LOCAL_MATCH} PRIVATE Threads::Threads Qt5::Widgets)
+###################################################################
