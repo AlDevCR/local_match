@@ -1,24 +1,28 @@
 #!/bin/bash
 
-export PATH=`git rev-parse --git-dir`/../tools/:$PATH
+exe=$(which clang-format)
 
-git clang-format-6.0
-
-rc=$?
-if [[ $rc == 33 ]]
+if [ -n "$exe" ]
 then
- echo "Nothing needs to be reformatted!"
- exit 0
+
+  IFS=$'\n'
+
+  for line in $(git status -s)
+  do
+    # If the file is added or modified
+    if [[ $line == A* || $line == M* ]]
+    then
+      # And the file is .h or .cpp
+      if [[$line == *.h || $line == *.cpp ]]
+      then
+        # Format the file
+        clang-format-6.0 -i -style=file $(pwd)/${line:3}
+
+        # And then add the file (so that any formatting changes get committed)
+        git add $(pwd)/${line:3}
+      fi
+    fi
+  done
+else
+  echo "Not found files for format."
 fi
-
-echo -e "Would you like to continue to commit (y/n): \c"
-
-exec < /dev/tty
-read cont
-
-if [ "$cont" == "y" ]
-then
- exit 0
-fi
-
-exit 1
