@@ -5,6 +5,7 @@ PROJECT(local_match)
 
 # Enable standard C++ 14 compiler
 SET(CMAKE_CXX_STANDARD 14)
+SET (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find includes in corresponding build directories
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -69,7 +70,7 @@ IF ($ENV{GOOGLETEST_DIR})
 		SET(GOOGLETEST_DIR $ENV{GOOGLETEST_DIR})
 ELSE ()
 		MESSAGE(WARNING "Using googletest src dir specified at Qt Creator wizard")
-		SET(GOOGLETEST_DIR "/home/hotrebor/googletest")
+                SET(GOOGLETEST_DIR "/home/$ENV{USER}/googletest")
 ENDIF ()
 
 # If it finds the gtest files, put it in a variable.

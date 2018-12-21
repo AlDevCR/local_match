@@ -3,34 +3,49 @@
 
 #include <QLineEdit>
 #include <QMainWindow>
+#include <memory>
 
 /*!
- * The class of user interface type is created to be able
+ * It is created to be able
  * to develop the login window
  */
+
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow {
-  Q_OBJECT
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
 
- public:
-  explicit MainWindow ( QWidget *i_parent = nullptr );
-  ~MainWindow ( );
+public:
+    explicit MainWindow(QWidget *i_parent = nullptr);
+    ~MainWindow();
 
-  /*!
-   * The functions of button actions are declared so
-   * they can be used later
-   */
- private slots:
+    MainWindow(const MainWindow &mainWindow) = default;
 
-  void onButtonSignUpClicked ( );
+    MainWindow &operator= (const MainWindow &mainWindow) = default;
 
-  void onButtonLoginClicked ( );
+/*!
+ * The functions of button actions are declared so
+ * they can be used later
+ */
+private slots:
+    /*!
+     * The function when the user click the button to sign up is declare
+     */
+    void onButtonSignUpClicked ( );
 
- private:
-  Ui::MainWindow *ui;
+    /*!
+     * The function when the user click the button to log in is declare
+     */
+    void onButtonLoginClicked ( );
+
+private:
+    /*! It will be used to be able to use all the graphic
+     * interface elements of Main Window */
+    std::unique_ptr<Ui::MainWindow> ui;
 };
 
 #endif // MAINWINDOW_H
+
