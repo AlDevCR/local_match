@@ -17,7 +17,11 @@ MainWindow::MainWindow ( QWidget *i_parent ) : QMainWindow ( i_parent ), ui ( st
   ui->setupUi (this);
   ///@TODO Remove this image from a local directory and store them in the DB
   QPixmap pixLogo (":/images/logo.svg");
+  QPixmap pixLogin ( ":/images/loginIcon.svg" );
+  QPixmap pixSignup ( ":/images/signupIcon.svg" );
   ui->pictureLogo->setPixmap (pixLogo);
+  ui->buttonLogin->setIcon ( pixLogin );
+  ui->buttonSignUp->setIcon ( pixSignup );
   this->setFixedWidth (FIXEDWIDTHMAINWINDOW);
   this->setFixedHeight (FIXEDHEIGHTMAINWINDOW);
   this->setGeometry (QStyle::alignedRect (Qt::LeftToRight, Qt::AlignCenter, this->size (),

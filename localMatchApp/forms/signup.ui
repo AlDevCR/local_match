@@ -431,17 +431,39 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>210</y>
+     <x>120</x>
+     <y>170</y>
      <width>241</width>
-     <height>151</height>
+     <height>211</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLineEdit" name="lineEditNewUser">
+       <widget class="QLineEdit" name="lineEditName">
+        <property name="styleSheet">
+         <string notr="true">selection-background-color: rgb(56, 151, 255);
+</string>
+        </property>
+        <property name="placeholderText">
+         <string>Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEditLastName">
+        <property name="styleSheet">
+         <string notr="true">selection-background-color: rgb(56, 151, 255);
+</string>
+        </property>
+        <property name="placeholderText">
+         <string>Last Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEditUserName">
         <property name="styleSheet">
          <string notr="true">selection-background-color: rgb(56, 151, 255);
 </string>
@@ -497,7 +519,7 @@
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>90</y>
+     <y>60</y>
      <width>373</width>
      <height>63</height>
     </rect>

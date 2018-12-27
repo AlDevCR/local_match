@@ -2,9 +2,9 @@
 #define HOMEWINDOW_H
 
 #include <QDialog>
-#include "GeneralEvent.h"
-#include "DatabaseManager.h"
 #include <memory>
+#include "DatabaseManager.h"
+#include "GeneralEvent.h"
 
 /*!
  * It is created to
@@ -23,15 +23,15 @@ public:
     explicit HomeWindow(QWidget *i_parent = nullptr);
     ~HomeWindow();
 
-    HomeWindow(const HomeWindow &homeWindow) = default;
+    HomeWindow ( const HomeWindow &homeWindow ) = default;
 
-    HomeWindow& operator = (const HomeWindow &homeWindow) = default;
+    HomeWindow &operator= ( const HomeWindow &homeWindow ) = default;
 
-/*!
- * The functions of button actions are declared so
- * they can be used later
- */
-private slots:
+    /*!
+     * The functions of button actions are declared so
+     * they can be used later
+     */
+   private slots:
     /*!
      * The function when the user click the button of previous event is declare
      */
@@ -45,8 +45,14 @@ private slots:
     /*!
      * The function when the user click the button of Subscribe is declare
      */
-    void onPushButtonSubscribeClicked();
-private:
+    void onButtonSubscribeClicked ( );
+
+    /*!
+     * The function when the user click the button of logout close the program
+     */
+    void onButtonLogOutClicked ( );
+
+   private:
     /*! It will be used to be able to use all the graphic
      * interface elements of Home Window */
     std::unique_ptr<Ui::HomeWindow> ui;
@@ -55,14 +61,14 @@ private:
     void showInformationCarousel(int i_index);
 
     /*! It will change the visibility of buttons of previous and
-    * next in the carousel */
+     * next in the carousel */
     void showButtonsCarousel(int i_index);
 
     /*! It saves the value to check if the are no events */
     const int NOEVENTS = 0;
 
     /*! It saves the value to check if the current event
-    * in carousel is the first */
+     * in carousel is the first */
     const int FIRSTEVENT = 0;
 
     /*! It saves the value to check if there is only one event */

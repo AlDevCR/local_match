@@ -3,5 +3,13 @@
     <file>images/logo.svg</file>
     <file>images/user.svg</file>
     <file>images/eventExample.svg</file>
+    <file>images/backIcon.svg</file>
+    <file>images/nextIcon.svg</file>
+    <file>images/subscribeIcon.svg</file>
+    <file>images/unsubscribeIcon.svg</file>
+    <file>images/loginIcon.svg</file>
+    <file>images/signupIcon.svg</file>
+    <file>images/logoutIcon.svg</file>
+    <file>images/homeIcon.svg</file>
 </qresource>
 </RCC>

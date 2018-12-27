@@ -19,9 +19,9 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>260</x>
      <y>30</y>
-     <width>891</width>
+     <width>871</width>
      <height>271</height>
     </rect>
    </property>
@@ -82,12 +82,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonSubscribe">
+   <widget class="QPushButton" name="ButtonSubscribe">
     <property name="geometry">
      <rect>
-      <x>760</x>
+      <x>740</x>
       <y>230</y>
-      <width>89</width>
+      <width>111</width>
       <height>25</height>
      </rect>
     </property>
@@ -150,6 +150,38 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButtonLocalEvents">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>0</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(237, 240, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ButtonUnsubscribe">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>230</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(187, 205, 225);</string>
+    </property>
+    <property name="text">
+     <string>Unsubscribe</string>
     </property>
    </widget>
   </widget>
@@ -231,7 +263,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="ButtonLogOut">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -251,43 +283,30 @@
   <widget class="QPushButton" name="ButtonPrevious">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>220</x>
      <y>150</y>
-     <width>41</width>
-     <height>31</height>
+     <width>36</width>
+     <height>36</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(187, 205, 225);</string>
    </property>
    <property name="text">
-    <string>&lt;</string>
+    <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="ButtonNext">
-   <property name="geometry">
-    <rect>
-     <x>1150</x>
-     <y>160</y>
-     <width>41</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(187, 205, 225);</string>
-   </property>
-   <property name="text">
-    <string>&gt;</string>
-   </property>
-  </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="listWidgetEvents">
    <property name="geometry">
     <rect>
      <x>260</x>
      <y>370</y>
-     <width>256</width>
-     <height>192</height>
+     <width>391</width>
+     <height>261</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -304,14 +323,14 @@
     <rect>
      <x>260</x>
      <y>340</y>
-     <width>256</width>
+     <width>391</width>
      <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 0, 0);
-font: 15pt &quot;Ubuntu&quot;;
+    <string notr="true">font: 15pt;
 color:rgb(238, 238, 236);
+background-color: rgb(85, 87, 83);
 </string>
    </property>
    <property name="frameShape">
@@ -328,6 +347,22 @@ color:rgb(238, 238, 236);
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonNext">
+   <property name="geometry">
+    <rect>
+     <x>1140</x>
+     <y>150</y>
+     <width>36</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(187, 205, 225);</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
