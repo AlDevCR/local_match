@@ -1,7 +1,7 @@
 <RCC>
 <qresource>
-    <file>images/eventExample.svg</file>
     <file>images/logo.svg</file>
     <file>images/user.svg</file>
+    <file>images/eventExample.svg</file>
 </qresource>
 </RCC>
