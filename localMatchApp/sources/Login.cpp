@@ -11,7 +11,8 @@ Login::~Login ( ) {
   // TODO: Disconnect to database.
 }
 
-Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_password,
+Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_name,
+                                         const string& i_lastName, const string& i_password,
                                          const string& i_repeatedPassword ) {
   ConnectionMessage signUpConnectionState=ConnectionMessage::goodEntry;
   // TODO: Send and receive information to database.
@@ -28,6 +29,14 @@ Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_p
 
   else if ( i_user==userInDatabase || i_user.length()==0) {
     signUpConnectionState= ConnectionMessage::invalidUser;
+  }
+
+  else if ( i_name.length ( ) == 0 ) {
+    signUpConnectionState = ConnectionMessage::invalidName;
+  }
+
+  else if ( i_lastName.length ( ) == 0 ) {
+    signUpConnectionState = ConnectionMessage::invalidadLastName;
   }
 
   // TODO: Set user and password in table.

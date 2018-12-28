@@ -50,12 +50,42 @@ SignUp::~SignUp(){}
 
 void SignUp::onNewUserButtonClicked()
 {
-    /*!
-     * If the user has been successfully created, a message is displayed
-     */
+  /*!
+   * A variable is created that stores what the function that validates the data entered by the
+   * user, returns
+   */
+  statusSignUp = login.signUp ( ( ui->lineEditUserName->text ( ) ).toStdString ( ),
+                                ( ui->lineEditName->text ( ) ).toStdString ( ),
+                                ( ui->lineEditLastName->text ( ) ).toStdString ( ),
+                                ( ui->lineEditNewPassword->text ( ) ).toStdString ( ),
+                                ( ui->lineEditNewPasswordCheck->text ( ) ).toStdString ( ) );
+
+  /*!
+   * If the function returns a success message the main screen of the program opens
+   */
+  if ( statusSignUp == Login::ConnectionMessage::goodEntry ) {
     QMessageBox messageNewUser;
-    messageNewUser.setWindowTitle("New user");
-    messageNewUser.setText("The user has been created successfully");
-    messageNewUser.exec();
+    messageNewUser.setWindowTitle ( "New user" );
+    messageNewUser.setText ( "The user has been created successfully" );
+    messageNewUser.exec ( );
     this->close ( );
+    /*!
+     * If the function returns an error message, a message box is show to the user
+     */
+  } else {
+    if ( statusSignUp == Login::ConnectionMessage::invalidUser ) {
+      MessageSignUpError = "User is incorrect";
+    } else if ( statusSignUp == Login::ConnectionMessage::invalidName ) {
+      MessageSignUpError = "Name is incorrect";
+    } else if ( statusSignUp == Login::ConnectionMessage::invalidadLastName ) {
+      MessageSignUpError = "Last Name is incorrect";
+    } else if ( statusSignUp == Login::ConnectionMessage::wrongPassword ) {
+      MessageSignUpError = "Password is incorrect";
+    } else if ( statusSignUp == Login::ConnectionMessage::notEqualPasswords ) {
+      MessageSignUpError = "Passwords are not equal";
+    }
+    QMessageBox messageBoxIncorrect;
+    messageBoxIncorrect.critical ( nullptr, "Error", MessageSignUpError );
+    messageBoxIncorrect.setFixedSize ( 500, 200 );
+  }
 }
