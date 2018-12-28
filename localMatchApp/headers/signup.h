@@ -21,9 +21,9 @@ class SignUp : public QDialog
   explicit SignUp (QWidget *i_parent = nullptr);
   ~SignUp ( );
 
-  SignUp (const SignUp& signUp) = default;
+  SignUp ( const SignUp& signUp ) = default;
 
-  SignUp &operator = (const SignUp& signUp) = default;
+  SignUp& operator= ( const SignUp& signUp ) = default;
 
   /*!
    * The functions of button actions are declared so
@@ -37,9 +37,9 @@ class SignUp : public QDialog
     void onNewUserButtonClicked ( );
 
 private:
-    /*! It will be used to be able to use all the graphic
-     * interface elements of Sign Up Window */
-    std::unique_ptr<Ui::SignUp> ui;
+ /*! It will be used to be able to use all the graphic
+  * interface elements of Sign Up Window */
+ std::unique_ptr< Ui::SignUp > ui;
 };
 
 #endif // SIGNUP_H

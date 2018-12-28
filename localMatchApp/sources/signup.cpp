@@ -57,4 +57,5 @@ void SignUp::onNewUserButtonClicked()
     messageNewUser.setWindowTitle("New user");
     messageNewUser.setText("The user has been created successfully");
     messageNewUser.exec();
+    this->close ( );
 }
