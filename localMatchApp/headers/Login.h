@@ -19,6 +19,8 @@ class Login {
     goodEntry,
     doesntExists,
     invalidUser,
+    invalidName,
+    invalidadLastName,
     wrongPassword
   };
 
@@ -34,7 +36,8 @@ class Login {
   bool hasCorrectFormat (const std::string &i_password );
 
   /** Add a new user in the application database*/
-  ConnectionMessage signUp (const std::string &i_user, const std::string &i_password,
+  ConnectionMessage signUp ( const std::string &i_user, const std::string &i_name,
+                             const std::string &i_lastName, const std::string &i_password,
                              const std::string &i_repeatedPassword );
 
   /** Log-in in the database and allow the access in the application.*/

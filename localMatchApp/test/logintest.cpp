@@ -50,18 +50,33 @@ TEST(LoginTest, TestSignUp){
   Login objectOfTest;
 
   std::string emptyUserspace = "";
+  std::string emptyNamespace = "";
+  std::string emptyLastNamespace = "";
   std::string sameUser = "Lol2018";
   std::string newUser = "newUser";
+  std::string newName = "newName";
+  std::string newLastName = "newLastName";
   std::string goodPass = "Lol2018";
   std::string wrongPassGoodFormat = "Il0";
   std::string BadPass = "lol";
 
-  EXPECT_EQ(Login::ConnectionMessage::goodEntry,objectOfTest.signUp(newUser,goodPass,goodPass));
-  EXPECT_EQ(Login::ConnectionMessage::invalidUser,objectOfTest.signUp(sameUser,goodPass,goodPass));
-  EXPECT_EQ(Login::ConnectionMessage::invalidUser,objectOfTest.signUp(emptyUserspace,goodPass,goodPass));
-  EXPECT_EQ(Login::ConnectionMessage::wrongPassword,objectOfTest.signUp(newUser,BadPass,goodPass));
-  EXPECT_EQ(Login::ConnectionMessage::wrongPassword,objectOfTest.signUp(newUser,goodPass,BadPass));
-  EXPECT_EQ(Login::ConnectionMessage::notEqualPasswords,objectOfTest.signUp(newUser,goodPass,wrongPassGoodFormat));
+  EXPECT_EQ ( Login::ConnectionMessage::goodEntry,
+              objectOfTest.signUp ( newUser, newName, newLastName, goodPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::invalidUser,
+              objectOfTest.signUp ( sameUser, newName, newLastName, goodPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::invalidUser,
+              objectOfTest.signUp ( emptyUserspace, newName, newLastName, goodPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::invalidName,
+              objectOfTest.signUp ( newUser, emptyNamespace, newLastName, goodPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::invalidadLastName,
+              objectOfTest.signUp ( newUser, newName, emptyLastNamespace, goodPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::wrongPassword,
+              objectOfTest.signUp ( newUser, newName, newLastName, BadPass, goodPass ) );
+  EXPECT_EQ ( Login::ConnectionMessage::wrongPassword,
+              objectOfTest.signUp ( newUser, newName, newLastName, goodPass, BadPass ) );
+  EXPECT_EQ (
+      Login::ConnectionMessage::notEqualPasswords,
+      objectOfTest.signUp ( newUser, newName, newLastName, goodPass, wrongPassGoodFormat ) );
 }
 
 /// Check the entry function with all the possible returns.

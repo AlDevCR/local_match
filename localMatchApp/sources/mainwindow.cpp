@@ -60,13 +60,33 @@ void MainWindow::onButtonSignUpClicked()
 
 void MainWindow::onButtonLoginClicked()
 {
-    /*!
-     * It creates and object of type HomeWindow and show the
-     * window if the user click the button and hide the current window
-     */
-    this->hide();
+  /*!
+   * A variable is created that stores what the function that validates the data entered by the
+   * user, returns
+   */
+  statusLogin = login.entry ( ( ui->lineEditUser->text ( ) ).toStdString ( ),
+                              ( ui->lineEditPassword->text ( ) ).toStdString ( ) );
+
+  /*!
+   * If the function returns a success message the main screen of the program opens
+   */
+  if ( statusLogin == Login::ConnectionMessage::goodEntry ) {
+    this->hide ( );
     HomeWindow homeWindow;
-    homeWindow.setModal(true);
-    homeWindow.exec();
+    homeWindow.setModal ( true );
+    homeWindow.exec ( );
+    /*!
+     * If the function returns an error message, a message box is show to the user
+     */
+  } else {
+    if ( statusLogin == Login::ConnectionMessage::doesntExists ) {
+      MessageLoginError = "User is incorrect";
+    } else if ( statusLogin == Login::ConnectionMessage::wrongPassword ) {
+      MessageLoginError = "Password is incorrect";
+    }
+    QMessageBox messageBoxIncorrect;
+    messageBoxIncorrect.critical ( nullptr, "Error", MessageLoginError );
+    messageBoxIncorrect.setFixedSize ( 500, 200 );
+  }
 }
 
