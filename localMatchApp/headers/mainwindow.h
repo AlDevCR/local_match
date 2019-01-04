@@ -33,12 +33,12 @@ public:
      */
    private slots:
     /*!
-     * The function when the user click the button to sign up is declare
+     * The function when the user click the button to sign up is declared
      */
     void onButtonSignUpClicked ( );
 
     /*!
-     * The function when the user click the button to log in is declare
+     * The function when the user click the button to log in is declared
      */
     void onButtonLoginClicked ( );
 
