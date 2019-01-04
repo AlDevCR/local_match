@@ -50,6 +50,16 @@ public:
     QString getNameEvent();
 
     /*!
+     * It sets the type of the event
+     */
+    void setTypeEvent ( QString i_valueTypeEvent );
+
+    /*!
+     * It gets the type of the event by the database
+     */
+    QString getTypeEvent ( );
+
+    /*!
      * It sets the description of the event
      */
     void setDescriptionEvent(QString i_valueDescriptionEvent);
@@ -80,6 +90,46 @@ public:
     QString getFinalDateEvent();
 
     /*!
+     * It sets the province of the event
+     */
+    void setProvinceEvent ( QString i_valueProvinceEvent );
+
+    /*!
+     * It gets the province of the event by the database
+     */
+    QString getProvinceEvent ( );
+
+    /*!
+     * It sets the canton of the event
+     */
+    void setCantonEvent ( QString i_valueCantonEvent );
+
+    /*!
+     * It gets the canton of the event by the database
+     */
+    QString getCantonEvent ( );
+
+    /*!
+     * It sets the district of the event
+     */
+    void setDistrictEvent ( QString i_valueCantonEvent );
+
+    /*!
+     * It gets the district of the event by the database
+     */
+    QString getDistrictEvent ( );
+
+    /*!
+     * It sets the location of the event
+     */
+    void setLocationEvent ( QString i_valueCantonEvent );
+
+    /*!
+     * It gets the location of the event by the database
+     */
+    QString getLocationEvent ( );
+
+    /*!
      * It sets the image of the event
      */
     void setImageEvent(QString i_valuePathImageEvent);
@@ -99,6 +149,9 @@ private:
     /*! It saves the name of the event */
     QString nameEvent;
 
+    /*! It saves the type of the event */
+    QString typeEvent;
+
     /*! It saves the description of the event */
     QString descriptionEvent;
 
@@ -108,8 +161,19 @@ private:
     /*! It saves the final date of the event */
     QString finalDateEvent;
 
-    /*! It saves the path of the image of the event */
-    ///@TODO Change the name of the variable to imageEvent when the database is ready
+    /*! It saves the province of the event */
+    QString provinceEvent;
+
+    /*! It saves the canton of the event */
+    QString cantonEvent;
+
+    /*! It saves the district of the event */
+    QString districtEvent;
+
+    /*! It saves the location of the event */
+    QString locationEvent;
+
+    /*! It saves the image of the event */
     QString imageEvent;
 };
 

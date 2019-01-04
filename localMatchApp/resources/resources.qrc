@@ -15,5 +15,6 @@
     <file>images/noImageIcon.svg</file>
     <file>images/modifyIcon.svg</file>
     <file>images/deleteIcon.svg</file>
+    <file>images/noEvents.svg</file>
 </qresource>
 </RCC>

@@ -60,6 +60,31 @@ private slots:
   */
  void onButtonLogOutClicked ( );
 
+ /*!
+  * The function when the user click the button of new event is declared
+  */
+ void onButtonNewEventClicked ( );
+
+ /*!
+  * The function when the user click the button of modify event is declared
+  */
+ void onButtonModifyEventClicked ( );
+
+ /*!
+  * The function when the user click the button of delete event is declared
+  */
+ void onButtonDeleteEventClicked ( );
+
+ /*!
+  * The function when the user click the button of update event is declared
+  */
+ void onButtonUpdateEventClicked ( );
+
+ /*!
+  * The function when the user click the button of cancel is declared
+  */
+ void onButtonCancelClicked ( );
+
 private:
  /*! It will be used to be able to use all the graphic
   * interface elements of Home Window */
@@ -71,6 +96,9 @@ private:
  /*! It will change the visibility of buttons of previous and
   * next in the carousel */
  void showButtonsCarousel ( int i_index );
+
+ /*! It will assign the values of the event in variables */
+ void assignValuesEvent ( GeneralEvent i_event );
 
  /*! It saves the value to check if the are no events */
  const int NOEVENTS = 0;
@@ -97,8 +125,44 @@ private:
  /*! It saves the value of current index of carousel of events */
  int indexOfCarousel;
 
+ /*! It saves the id of the event */
+ int idEvent;
+
+ /*! It saves the total of the events */
+ int totalEvents;
+
  /*! It saves the value of the type of the user */
  int typeUser;
+
+ /*! It saves the name of the event */
+ QString nameEvent;
+
+ /*! It saves the type of the event */
+ QString typeEvent;
+
+ /*! It saves the description of the event */
+ QString descriptionEvent;
+
+ /*! It saves the initial date of the event */
+ QString initialDateEvent;
+
+ /*! It saves the final date of the event */
+ QString finalDateEvent;
+
+ /*! It saves the province of the event */
+ QString provinceEvent;
+
+ /*! It saves the canton of the event */
+ QString cantonEvent;
+
+ /*! It saves the district of the event */
+ QString districtEvent;
+
+ /*! It saves the location of the event */
+ QString locationEvent;
+
+ /*! It saves the image of the event */
+ QString imageEvent;
 
  /*! It saves the value that informs the user what is the current event */
  QString eventStatus;
