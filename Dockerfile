@@ -62,10 +62,7 @@ ENV QT_EVERYWHERE_DIR /qt-everywhere-src-"$QT_VERSION"
 RUN curl -sSL $QT_EVERYWHERE_SRC | tar xJ \
     && cd $QT_EVERYWHERE_DIR \
     && bash ./configure --help \
-    && bash ./configure -opensource -confirm-license -static -no-accessibility -sql-odbc -sql-sqlite -sqlite \
-       -no-harfbuzz -openssl-linked -qt-pcre -no-dbus -nomake tools \
-       -no-xkbcommon-evdev -no-xcb-xlib -no-glib -qt-xcb -no-compile-examples -nomake examples \
-       -no-gif -qt-doubleconversion -no-gtk \
+    && bash ./configure -opensource -confirm-license -no-accessibility -sql-odbc -sql-sqlite -sqlite -gui -widgets -nomake tools -no-compile-examples -nomake examples -qt-doubleconversion\
     && make install
 
 ENV PATH $QT_DIST/bin:$PATH
