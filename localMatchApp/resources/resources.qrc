@@ -11,5 +11,9 @@
     <file>images/signupIcon.svg</file>
     <file>images/logoutIcon.svg</file>
     <file>images/homeIcon.svg</file>
+    <file>images/newImageIcon.svg</file>
+    <file>images/noImageIcon.svg</file>
+    <file>images/modifyIcon.svg</file>
+    <file>images/deleteIcon.svg</file>
 </qresource>
 </RCC>

@@ -1,7 +1,8 @@
 #include "homewindow.h"
-#include "ui_homewindow.h"
-#include <QStyle>
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QStyle>
+#include "ui_homewindow.h"
 
 /*!
  * It is created all that is necessary
@@ -10,6 +11,21 @@
 HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::make_unique<Ui::HomeWindow>() )
 {
     ui->setupUi(this);
+    ///@TODO Change this default value to the data by DB
+    /*!
+    1 = Personal user
+    2 = Commercial user
+    3 = Administrator user
+    */
+    typeUser = 2;
+
+    if ( typeUser == 1 ) {
+      typeOfUser = TypeOfUser::personalUser;
+    } else if ( typeUser == 2 ) {
+      typeOfUser = TypeOfUser::commercialUser;
+    } else if ( typeUser == 3 ) {
+      typeOfUser = TypeOfUser::administratorUser;
+    }
 
     /*! It is initialized with zero because the carousel
      * will begin with the first position */
@@ -21,6 +37,36 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     /*! It shows buttons in the carousel is called and the index value is sent */
     showButtonsCarousel(indexOfCarousel);
 
+    /*! If the user type is personal the area of manage event is not visible */
+    if ( typeOfUser == TypeOfUser::personalUser ) {
+      ui->labelTypeUser->setText ( "Personal Account" );
+      ui->groupBoxManageEvent->setVisible ( false );
+      ui->labelMyEvents->setVisible ( true );
+      ui->listWidgetEvents->setVisible ( true );
+      ui->ButtonModify->setVisible ( false );
+      ui->ButtonDelete->setVisible ( false );
+      ui->ButtonSubscribe->setVisible ( true );
+      /*! If the user type is commercial the area of manage event is visible */
+    } else if ( typeOfUser == TypeOfUser::commercialUser ) {
+      ui->labelTypeUser->setText ( "Commercial Account" );
+      ui->groupBoxManageEvent->setVisible ( true );
+      ui->labelMyEvents->setVisible ( false );
+      ui->listWidgetEvents->setVisible ( false );
+      ui->groupBoxEvent->setTitle ( "My Events" );
+      ui->ButtonModify->setVisible ( true );
+      ui->ButtonDelete->setVisible ( true );
+      ui->ButtonSubscribe->setVisible ( false );
+      /*! If the user type is administrator the area of manage event is visible */
+    } else if ( typeOfUser == TypeOfUser::administratorUser ) {
+      ui->labelTypeUser->setText ( "Administrator Account" );
+      ui->groupBoxManageEvent->setVisible ( true );
+      ui->labelMyEvents->setVisible ( false );
+      ui->listWidgetEvents->setVisible ( false );
+      ui->ButtonModify->setVisible ( false );
+      ui->ButtonDelete->setVisible ( false );
+      ui->ButtonSubscribe->setVisible ( false );
+    }
+
     ///@TODO Remove this images from a local directory and store them in the DB
     QPixmap pixUser (":/images/user.svg");
     QPixmap pixLogo (":/images/logo.svg");
@@ -30,6 +76,8 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     QPixmap pixUnsubscribe ( ":/images/unsubscribeIcon.svg" );
     QPixmap pixLogout ( ":/images/logoutIcon.svg" );
     QPixmap pixHome ( ":/images/homeIcon.svg" );
+    QPixmap pixModify ( ":/images/modifyIcon.svg" );
+    QPixmap pixDelete ( ":/images/deleteIcon.svg" );
 
     pixLogo = pixLogo.scaled (WIDTHSIZELOGO, HEIGHTSIZELOGO, Qt::KeepAspectRatio,
                                Qt::SmoothTransformation);
@@ -46,9 +94,40 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     ui->ButtonLogOut->setIcon ( pixLogout );
     ui->toolButtonLocalEvents->setIcon ( pixHome );
     ui->ButtonUnsubscribe->setVisible ( false );
+    ui->ButtonNewEvent->setIcon ( pixSubscribe );
+    ui->ButtonModify->setIcon ( pixModify );
+    ui->ButtonDelete->setIcon ( pixDelete );
 
-    ///@TODO Remove the name user value default and set the data by the DB
-    userName = "Name of the user";
+    ///@TODO Remove these default values and set the data of all combo box by the DB
+    listTypeEvents = ( QStringList ( ) << "Sports"
+                                       << "Music" );
+    ui->comboBoxTypeEvent->addItems ( listTypeEvents );
+    listProvinces = ( QStringList ( ) << "San Jose"
+                                      << "Alajuela"
+                                      << "Heredia"
+                                      << "Cartago"
+                                      << "Puntarenas"
+                                      << "Guanacaste"
+                                      << "Limon" );
+    ui->comboBoxProvince->addItems ( listProvinces );
+    listCantons = ( QStringList ( ) << "Escazu"
+                                    << "Acosta"
+                                    << "Perez Zeledon" );
+    ui->comboBoxCanton->addItems ( listCantons );
+    listDistricts = ( QStringList ( ) << "San Antonio"
+                                      << "San Rafael" );
+    ui->comboBoxDistrict->addItems ( listDistricts );
+
+    /*! Set the current date to the date time edit */
+    ui->dateTimeEditInitial->setDateTime ( QDateTime::currentDateTime ( ) );
+    ui->dateTimeEditFinal->setDateTime ( QDateTime::currentDateTime ( ) );
+    ui->dateTimeEditInitial->setMinimumDateTime ( QDateTime::currentDateTime ( ) );
+    ui->dateTimeEditFinal->setMinimumDateTime ( ui->dateTimeEditInitial->dateTime ( ) );
+    ui->labelCurrentDateTime->setText (
+        QDateTime::currentDateTime ( ).toString ( "dd/MM/yyyy hh:mm" ) );
+
+    ///@TODO Remove the values default and set the data by the DB
+    userName = "[LastName] + [Name]";
     ui->labelNameUser->setText (userName);
     ui->labelNameEvent->setStyleSheet ("font-weight: bold;");
     ui->labelEventInitialDate->setStyleSheet (
@@ -66,6 +145,8 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
     connect ( ui->ButtonSubscribe, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonSubscribeClicked ( ) ) );
+    connect ( ui->ButtonNewImage, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonNewImageClicked ( ) ) );
     connect ( ui->ButtonLogOut, SIGNAL ( clicked ( ) ), this, SLOT ( onButtonLogOutClicked ( ) ) );
 }
 
@@ -123,6 +204,30 @@ void HomeWindow::onButtonNextClicked()
 
     /*! The function to show buttons in the carousel is called and the index value is sent */
     showButtonsCarousel(indexOfCarousel);
+}
+
+void HomeWindow::onButtonNewImageClicked ( ) {
+  ///@TODO In this function is necessary to save the image by the user in the database
+  tempImageEvent =
+      QFileDialog::getOpenFileName ( this, tr ( "Open file" ), "/home", "Vector image (*.svg);;" );
+
+  QMessageBox messageNewImageEvent;
+  QPixmap pixStatusImage;
+  if ( tempImageEvent != "" ) {
+    QPixmap pixNewImageEvent ( tempImageEvent );
+    pixNewImageEvent = pixNewImageEvent.scaled ( WIDTHSIZEIMAGEEVENT, HEIGHTSIZEIMAGEEVENT,
+                                                 Qt::KeepAspectRatio, Qt::SmoothTransformation );
+    messageNewImageEvent.setIconPixmap ( pixNewImageEvent );
+    messageNewImageEvent.setWindowTitle ( "New image of the event" );
+    messageNewImageEvent.exec ( );
+    pixStatusImage.load ( ":/images/newImageIcon.svg" );
+    ui->ButtonNewImage->setText ( "Image selected" );
+  } else {
+    messageNewImageEvent.critical ( nullptr, "Error", "No image selected" );
+    pixStatusImage.load ( ":/images/noImageIcon.svg" );
+    ui->ButtonNewImage->setText ( "No image" );
+  }
+  ui->ButtonNewImage->setIcon ( pixStatusImage );
 }
 
 void HomeWindow::showInformationCarousel(int i_indexOfCarousel)
