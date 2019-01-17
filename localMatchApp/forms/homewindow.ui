@@ -54,8 +54,8 @@
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>40</y>
-      <width>461</width>
+      <y>30</y>
+      <width>331</width>
       <height>20</height>
      </rect>
     </property>
@@ -66,11 +66,11 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="labelDescription">
+   <widget class="QLabel" name="labelDescriptionEvent">
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>80</y>
+      <y>60</y>
       <width>461</width>
       <height>131</height>
      </rect>
@@ -184,7 +184,7 @@
      <string>Unsubscribe</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="ButtonModify">
+   <widget class="QPushButton" name="ButtonModifyEvent">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -197,7 +197,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="ButtonDelete">
+   <widget class="QPushButton" name="ButtonDeleteEvent">
     <property name="geometry">
      <rect>
       <x>800</x>
@@ -208,6 +208,38 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLocationEvent">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>200</y>
+      <width>461</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Location</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelTypeEvent">
+    <property name="geometry">
+     <rect>
+      <x>736</x>
+      <y>30</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Category</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
@@ -430,9 +462,9 @@ background-color: rgb(85, 87, 83);
    <property name="geometry">
     <rect>
      <x>290</x>
-     <y>330</y>
+     <y>320</y>
      <width>811</width>
-     <height>331</height>
+     <height>311</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -447,7 +479,7 @@ background-color: rgb(85, 87, 83);
       <x>10</x>
       <y>70</y>
       <width>311</width>
-      <height>251</height>
+      <height>221</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -460,7 +492,7 @@ background-color: rgb(85, 87, 83);
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>170</y>
+       <y>150</y>
        <width>201</width>
        <height>26</height>
       </rect>
@@ -476,7 +508,7 @@ background-color: rgb(85, 87, 83);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>170</y>
+       <y>150</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -489,7 +521,7 @@ background-color: rgb(85, 87, 83);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>180</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -502,7 +534,7 @@ background-color: rgb(85, 87, 83);
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>210</y>
+       <y>180</y>
        <width>201</width>
        <height>26</height>
       </rect>
@@ -520,7 +552,7 @@ background-color: rgb(85, 87, 83);
        <x>10</x>
        <y>10</y>
        <width>291</width>
-       <height>141</height>
+       <height>131</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -567,7 +599,7 @@ selection-color: rgb(114, 159, 207);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="labelTypeEvent">
+   <widget class="QLabel" name="labelType">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -699,29 +731,13 @@ selection-color: rgb(114, 159, 207);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="ButtonNewEvent">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>270</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Insert new event</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame_3">
     <property name="geometry">
      <rect>
       <x>330</x>
       <y>250</y>
-      <width>231</width>
-      <height>71</height>
+      <width>461</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -733,7 +749,7 @@ selection-color: rgb(114, 159, 207);</string>
     <widget class="QLabel" name="labelImageEvent">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>100</x>
        <y>10</y>
        <width>131</width>
        <height>17</height>
@@ -746,10 +762,10 @@ selection-color: rgb(114, 159, 207);</string>
     <widget class="QPushButton" name="ButtonNewImage">
      <property name="geometry">
       <rect>
-       <x>48</x>
-       <y>40</y>
+       <x>240</x>
+       <y>4</y>
        <width>131</width>
-       <height>25</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -760,6 +776,51 @@ selection-color: rgb(114, 159, 207);</string>
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="ButtonNewEvent">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>650</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Create Event</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonCancel">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>650</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonUpdateEvent">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>650</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Update Event</string>
+   </property>
   </widget>
  </widget>
  <resources/>

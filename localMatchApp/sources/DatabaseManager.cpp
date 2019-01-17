@@ -13,7 +13,8 @@ GeneralEvent DatabaseManager::selectEvent(int i_index)
     /// SELECT * FROM events LIMIT i_index,1;
     idEvent = 1;
     totalEvents = 1;
-    nameEvent = "New Year Party 2018";
+    nameEvent = "New Year Party 2019";
+    typeEvent = "Music";
     descriptionEvent = "So perhaps, you've generated some fancy "
                        "text, and you're content that you can now "
                        "copy and paste your fancy text in the "
@@ -22,8 +23,12 @@ GeneralEvent DatabaseManager::selectEvent(int i_index)
                        "possible to change the font of your text? "
                        "Is it some sort of hack? Are you copying "
                        "and pasting an actual font?";
-    initialDateEvent = "13/12/18 18:00";
-    finalDateEvent = "14/12/18 13:00";
+    initialDateEvent = "16/01/2019 19:00";
+    finalDateEvent = "18/01/2019 13:00";
+    provinceEvent = "Heredia";
+    cantonEvent = "Heredia";
+    districtEvent = "San Francisco";
+    locationEvent = "Oxigeno Human Playground";
     imageEvent = ":/images/eventExample.svg";
 
     /*!
@@ -34,9 +39,14 @@ GeneralEvent DatabaseManager::selectEvent(int i_index)
 
     event.setIdEvent(idEvent);
     event.setNameEvent(nameEvent);
+    event.setTypeEvent ( typeEvent );
     event.setDescriptionEvent(descriptionEvent);
     event.setInitialDateEvent(initialDateEvent);
     event.setFinalDateEvent(finalDateEvent);
+    event.setProvinceEvent ( provinceEvent );
+    event.setCantonEvent ( cantonEvent );
+    event.setDistrictEvent ( districtEvent );
+    event.setLocationEvent ( locationEvent );
     event.setImageEvent(imageEvent);
     event.setTotalEvents(totalEvents);
 

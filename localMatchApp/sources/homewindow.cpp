@@ -17,6 +17,7 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     2 = Commercial user
     3 = Administrator user
     */
+
     typeUser = 2;
 
     if ( typeUser == 1 ) {
@@ -27,25 +28,15 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
       typeOfUser = TypeOfUser::administratorUser;
     }
 
-    /*! It is initialized with zero because the carousel
-     * will begin with the first position */
-    indexOfCarousel = 0;
-
-    /*! It shows information in the carousel is called and the index value is sent */
-    showInformationCarousel(indexOfCarousel);
-
-    /*! It shows buttons in the carousel is called and the index value is sent */
-    showButtonsCarousel(indexOfCarousel);
-
     /*! If the user type is personal the area of manage event is not visible */
     if ( typeOfUser == TypeOfUser::personalUser ) {
       ui->labelTypeUser->setText ( "Personal Account" );
       ui->groupBoxManageEvent->setVisible ( false );
       ui->labelMyEvents->setVisible ( true );
       ui->listWidgetEvents->setVisible ( true );
-      ui->ButtonModify->setVisible ( false );
-      ui->ButtonDelete->setVisible ( false );
-      ui->ButtonSubscribe->setVisible ( true );
+      ui->ButtonModifyEvent->setVisible ( false );
+      ui->ButtonDeleteEvent->setVisible ( false );
+      ui->ButtonNewEvent->setVisible ( false );
       /*! If the user type is commercial the area of manage event is visible */
     } else if ( typeOfUser == TypeOfUser::commercialUser ) {
       ui->labelTypeUser->setText ( "Commercial Account" );
@@ -53,19 +44,36 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
       ui->labelMyEvents->setVisible ( false );
       ui->listWidgetEvents->setVisible ( false );
       ui->groupBoxEvent->setTitle ( "My Events" );
-      ui->ButtonModify->setVisible ( true );
-      ui->ButtonDelete->setVisible ( true );
+      ui->ButtonModifyEvent->setVisible ( true );
+      ui->ButtonDeleteEvent->setVisible ( true );
       ui->ButtonSubscribe->setVisible ( false );
+      ui->ButtonNewEvent->setVisible ( true );
       /*! If the user type is administrator the area of manage event is visible */
     } else if ( typeOfUser == TypeOfUser::administratorUser ) {
       ui->labelTypeUser->setText ( "Administrator Account" );
       ui->groupBoxManageEvent->setVisible ( true );
       ui->labelMyEvents->setVisible ( false );
       ui->listWidgetEvents->setVisible ( false );
-      ui->ButtonModify->setVisible ( false );
-      ui->ButtonDelete->setVisible ( false );
+      ui->ButtonModifyEvent->setVisible ( false );
+      ui->ButtonDeleteEvent->setVisible ( false );
       ui->ButtonSubscribe->setVisible ( false );
+      ui->ButtonNewEvent->setVisible ( true );
     }
+
+    ui->ButtonModifyEvent->setToolTip ( "Modify this event" );
+    ui->ButtonDeleteEvent->setToolTip ( "Delete this event" );
+    ui->ButtonUpdateEvent->setVisible ( false );
+    ui->ButtonCancel->setVisible ( false );
+
+    /*! It is initialized with zero because the carousel
+     * will begin with the first position */
+    indexOfCarousel = 0;
+
+    /*! It shows information in the carousel is called and the index value is sent */
+    showInformationCarousel ( indexOfCarousel );
+
+    /*! It shows buttons in the carousel is called and the index value is sent */
+    showButtonsCarousel ( indexOfCarousel );
 
     ///@TODO Remove this images from a local directory and store them in the DB
     QPixmap pixUser (":/images/user.svg");
@@ -95,8 +103,10 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     ui->toolButtonLocalEvents->setIcon ( pixHome );
     ui->ButtonUnsubscribe->setVisible ( false );
     ui->ButtonNewEvent->setIcon ( pixSubscribe );
-    ui->ButtonModify->setIcon ( pixModify );
-    ui->ButtonDelete->setIcon ( pixDelete );
+    ui->ButtonModifyEvent->setIcon ( pixModify );
+    ui->ButtonUpdateEvent->setIcon ( pixSubscribe );
+    ui->ButtonDeleteEvent->setIcon ( pixDelete );
+    ui->ButtonCancel->setIcon ( pixUnsubscribe );
 
     ///@TODO Remove these default values and set the data of all combo box by the DB
     listTypeEvents = ( QStringList ( ) << "Sports"
@@ -136,7 +146,7 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     ui->labelEventFinalDate->setStyleSheet (
         "font-weight: bold; color: "
         "rgb(187, 205, 225);" );
-    ui->labelDescription->setWordWrap (true);
+    ui->labelDescriptionEvent->setWordWrap ( true );
 
     /*!
      * The connection of slots to the signals when the user click the buttons
@@ -145,8 +155,17 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
     connect ( ui->ButtonSubscribe, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonSubscribeClicked ( ) ) );
+    connect ( ui->ButtonModifyEvent, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonModifyEventClicked ( ) ) );
     connect ( ui->ButtonNewImage, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonNewImageClicked ( ) ) );
+    connect ( ui->ButtonCancel, SIGNAL ( clicked ( ) ), this, SLOT ( onButtonCancelClicked ( ) ) );
+    connect ( ui->ButtonNewEvent, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonNewEventClicked ( ) ) );
+    connect ( ui->ButtonDeleteEvent, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonDeleteEventClicked ( ) ) );
+    connect ( ui->ButtonUpdateEvent, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonUpdateEventClicked ( ) ) );
     connect ( ui->ButtonLogOut, SIGNAL ( clicked ( ) ), this, SLOT ( onButtonLogOutClicked ( ) ) );
 }
 
@@ -230,6 +249,67 @@ void HomeWindow::onButtonNewImageClicked ( ) {
   ui->ButtonNewImage->setIcon ( pixStatusImage );
 }
 
+void HomeWindow::onButtonModifyEventClicked ( ) {
+  /*! The information fields are filled with the event that was selected to modify */
+  ui->lineEditNameEvent->setText ( nameEvent );
+  ui->comboBoxTypeEvent->setCurrentText ( typeEvent );
+  ui->textEditDescriptionEvent->setText ( descriptionEvent );
+  ui->dateTimeEditInitial->setDateTime (
+      QDateTime::fromString ( initialDateEvent, "dd/MM/yyyy hh:mm" ) );
+  ui->dateTimeEditFinal->setDateTime (
+      QDateTime::fromString ( finalDateEvent, "dd/MM/yyyy hh:mm" ) );
+  ui->comboBoxProvince->setCurrentText ( provinceEvent );
+  ui->comboBoxCanton->setCurrentText ( cantonEvent );
+  ui->comboBoxDistrict->setCurrentText ( districtEvent );
+  ui->textEditLocationEvent->setText ( locationEvent );
+  ui->groupBoxManageEvent->setTitle ( "Modify Event" );
+  ui->ButtonNewImage->setText ( "Change image" );
+  ui->ButtonNewEvent->setText ( "Modify Event" );
+  ui->ButtonCancel->setVisible ( true );
+  ui->ButtonNewEvent->setEnabled ( true );
+  ui->ButtonModifyEvent->setVisible ( false );
+  ui->ButtonDeleteEvent->setVisible ( false );
+  ui->ButtonUpdateEvent->setVisible ( true );
+  ui->ButtonNewEvent->setVisible ( false );
+}
+
+void HomeWindow::onButtonNewEventClicked ( ) {
+  ///@TODO In this function is necessary to save the new event created by the commercial user in the
+  /// DB
+}
+
+void HomeWindow::onButtonUpdateEventClicked ( ) {
+  ///@TODO In this function is necessary to update the event selected by the commercial user in the
+  /// DB
+}
+
+void HomeWindow::onButtonDeleteEventClicked ( ) {
+  ///@TODO In this function is necessary to delete the event selected by the commercial user in the
+  /// DB
+}
+
+void HomeWindow::onButtonCancelClicked ( ) {
+  /*! If the modification of a certain event is canceled all the fields return to the normal state
+   * to create a new event */
+  ui->lineEditNameEvent->setText ( "" );
+  ui->comboBoxTypeEvent->setCurrentIndex ( 0 );
+  ui->textEditDescriptionEvent->setText ( "" );
+  ui->dateTimeEditInitial->setDateTime ( QDateTime::currentDateTime ( ) );
+  ui->dateTimeEditFinal->setDateTime ( QDateTime::currentDateTime ( ) );
+  ui->comboBoxProvince->setCurrentIndex ( 0 );
+  ui->comboBoxCanton->setCurrentIndex ( 0 );
+  ui->comboBoxDistrict->setCurrentIndex ( 0 );
+  ui->textEditLocationEvent->setText ( "" );
+  ui->groupBoxManageEvent->setTitle ( "Create Event" );
+  ui->ButtonNewImage->setText ( "New image" );
+  ui->ButtonNewEvent->setText ( "Create Event" );
+  ui->ButtonCancel->setVisible ( false );
+  ui->ButtonModifyEvent->setVisible ( true );
+  ui->ButtonDeleteEvent->setVisible ( true );
+  ui->ButtonUpdateEvent->setVisible ( false );
+  ui->ButtonNewEvent->setVisible ( true );
+}
+
 void HomeWindow::showInformationCarousel(int i_indexOfCarousel)
 {
     /*!
@@ -238,22 +318,40 @@ void HomeWindow::showInformationCarousel(int i_indexOfCarousel)
      */
     event = databaseManager.selectEvent ( i_indexOfCarousel );
 
+    assignValuesEvent ( event );
+
     /*! To the index of the carousel is added a number because it starts in zero */
     eventStatus = QString::number(i_indexOfCarousel+1)+"/"+QString::number(event.getTotalEvents())+" of events";
 
     /*! If there are no events a message is show to the user */
     if(event.getTotalEvents() == NOEVENTS)
     {
-        ui->labelNameEvent->setText("No Data");
+      QPixmap pixNoEvents ( ":/images/noEvents.svg" );
+      ui->pictureEvent->setPixmap ( pixNoEvents );
+      ui->labelDescriptionEvent->setText ( "No Events Availables" );
+      ui->labelNameEvent->setVisible ( false );
+      ui->labelTypeEvent->setVisible ( false );
+      ui->labelEventInitialDate->setVisible ( false );
+      ui->labelEventFinalDate->setVisible ( false );
+      ui->labelLocationEvent->setVisible ( false );
+      ui->ButtonModifyEvent->setVisible ( false );
+      ui->ButtonDeleteEvent->setVisible ( false );
+      ui->labelEventStatus->setVisible ( false );
+      ui->ButtonNext->setVisible ( false );
+      ui->ButtonPrevious->setVisible ( false );
+      ui->ButtonSubscribe->setVisible ( false );
     }
     /*! If there are at least one event the information of the user is showed */
     else{
-        ui->labelNameEvent->setText (event.getNameEvent());
-        ui->labelDescription->setText (event.getDescriptionEvent());
-        ui->labelEventInitialDate->setText (event.getInitialDateEvent());
-        ui->labelEventFinalDate->setText (event.getFinalDateEvent());
-        ui->pictureEvent->setPixmap ( event.getImageEvent ( ) );
-        ui->labelEventStatus->setText(eventStatus);
+      ui->labelNameEvent->setText ( nameEvent );
+      ui->labelTypeEvent->setText ( typeEvent );
+      ui->labelDescriptionEvent->setText ( descriptionEvent );
+      ui->labelEventInitialDate->setText ( initialDateEvent );
+      ui->labelEventFinalDate->setText ( finalDateEvent );
+      ui->labelLocationEvent->setText ( provinceEvent + " / " + cantonEvent + " / " +
+                                        districtEvent );
+      ui->pictureEvent->setPixmap ( imageEvent );
+      ui->labelEventStatus->setText ( eventStatus );
     }
 }
 
@@ -279,4 +377,18 @@ void HomeWindow::showButtonsCarousel(int i_indexOfCarousel)
       ui->ButtonPrevious->setDisabled ( false );
       ui->ButtonNext->setDisabled ( false );
     }
+}
+
+void HomeWindow::assignValuesEvent ( GeneralEvent i_event ) {
+  idEvent = i_event.getIdEvent ( );
+  nameEvent = i_event.getNameEvent ( );
+  typeEvent = i_event.getTypeEvent ( );
+  descriptionEvent = i_event.getDescriptionEvent ( );
+  initialDateEvent = i_event.getInitialDateEvent ( );
+  finalDateEvent = i_event.getFinalDateEvent ( );
+  provinceEvent = i_event.getProvinceEvent ( );
+  cantonEvent = i_event.getCantonEvent ( );
+  districtEvent = i_event.getDistrictEvent ( );
+  locationEvent = i_event.getLocationEvent ( );
+  imageEvent = i_event.getImageEvent ( );
 }

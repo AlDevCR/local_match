@@ -35,6 +35,9 @@ private:
   /*! It saves the name of the event */
   QString nameEvent;
 
+  /*! It saves the type of the event */
+  QString typeEvent;
+
   /*! It saves the description of the event */
   QString descriptionEvent;
 
@@ -43,6 +46,18 @@ private:
 
   /*! It saves the final date of the event */
   QString finalDateEvent;
+
+  /*! It saves the province of the event */
+  QString provinceEvent;
+
+  /*! It saves the canton of the event */
+  QString cantonEvent;
+
+  /*! It saves the district of the event */
+  QString districtEvent;
+
+  /*! It saves the location of the event */
+  QString locationEvent;
 
   /*! It saves the image of the event */
   QString imageEvent;
