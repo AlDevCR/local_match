@@ -2,6 +2,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QStyle>
+#include "mainwindow.h"
 #include "ui_homewindow.h"
 
 /*!
@@ -18,7 +19,7 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     3 = Administrator user
     */
 
-    typeUser = 2;
+    typeUser = 1;
 
     if ( typeUser == 1 ) {
       typeOfUser = TypeOfUser::personalUser;
@@ -65,15 +66,20 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     ui->ButtonUpdateEvent->setVisible ( false );
     ui->ButtonCancel->setVisible ( false );
 
-    /*! It is initialized with zero because the carousel
-     * will begin with the first position */
-    indexOfCarousel = 0;
+    ui->listWidgetEvents->setStyleSheet (
+        "QListWidget::item {"
+        "border-style: solid;"
+        "border-width:1px;"
+        "border-bottom-color:black;"
+        "background-color:white;"
+        "qproperty-alignment: 'AlignBottom | AlignRight';"
+        "}"
+        "QListWidget::item:selected {"
+        "background-color: rgb(237, 240, 255);"
+        "color: black;"
+        "}" );
 
-    /*! It shows information in the carousel is called and the index value is sent */
-    showInformationCarousel ( indexOfCarousel );
-
-    /*! It shows buttons in the carousel is called and the index value is sent */
-    showButtonsCarousel ( indexOfCarousel );
+    showAvailableEvents ( );
 
     ///@TODO Remove this images from a local directory and store them in the DB
     QPixmap pixUser (":/images/user.svg");
@@ -155,6 +161,8 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     connect (ui->ButtonPrevious, SIGNAL (clicked ()), this, SLOT (onButtonPreviousClicked ()));
     connect ( ui->ButtonSubscribe, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonSubscribeClicked ( ) ) );
+    connect ( ui->ButtonUnsubscribe, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonUnSubscribeClicked ( ) ) );
     connect ( ui->ButtonModifyEvent, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonModifyEventClicked ( ) ) );
     connect ( ui->ButtonNewImage, SIGNAL ( clicked ( ) ), this,
@@ -167,27 +175,60 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     connect ( ui->ButtonUpdateEvent, SIGNAL ( clicked ( ) ), this,
               SLOT ( onButtonUpdateEventClicked ( ) ) );
     connect ( ui->ButtonLogOut, SIGNAL ( clicked ( ) ), this, SLOT ( onButtonLogOutClicked ( ) ) );
+    connect ( ui->listWidgetEvents, SIGNAL ( clicked ( QModelIndex ) ), this,
+              SLOT ( onEventItemsClicked ( ) ) );
+    connect ( ui->toolButtonLocalEvents, SIGNAL ( clicked ( ) ), this,
+              SLOT ( onButtonLocalEventsClicked ( ) ) );
 }
 
 void HomeWindow::onButtonSubscribeClicked ( ) {
+
+  ///@TODO In this function is necessary to call the function insertEventToUser that is in
+  /// DatabaseManager
+  /// class and assign it the current user's id session and the id of the event that was selected
+  /// databaseManager.insertEventToUser( sessionId , event.getIdEvent() )
+
   /*!
-   * If the user click the button of subscribe, a new item of local event is
-   * added to the list widget of my events
+   * Update the information of the local events
    */
+  indexOfCarousel = 0;
+  showInformationCarousel ( indexOfCarousel );
+
+  /*!
+   * Update the information of my events of the current user
+   */
+  ui->listWidgetEvents->clear ( );
+  showValuesMyEvent ( );
+
+  ///@TODO Remove that because is for UI test only
+  ui->ButtonSubscribe->setVisible ( false );
+  ui->ButtonUnsubscribe->setVisible ( true );
   ui->listWidgetEvents->addItem (
       new QListWidgetItem ( QIcon ( event.getImageEvent ( ) ), event.getNameEvent ( ) ) );
-  ui->listWidgetEvents->setStyleSheet (
-      "QListWidget::item {"
-      "border-style: solid;"
-      "border-width:1px;"
-      "border-bottom-color:black;"
-      "background-color:white;"
-      "qproperty-alignment: 'AlignBottom | AlignRight';"
-      "}"
-      "QListWidget::item:selected {"
-      "background-color: rgb(237, 240, 255);"
-      "color: black;"
-      "}" );
+}
+
+void HomeWindow::onButtonUnSubscribeClicked ( ) {
+
+  ///@TODO In this function is necessary to call the function deleteEventToUser that is in
+  /// DatabaseManager
+  /// class and assign it the current user's id session and the id of the event that was selected
+  /// databaseManager.deleteEventToUser( sessionId , event.getIdEvent() )
+
+  /*!
+   * Update the information of the local events
+   */
+  indexOfCarousel = 0;
+  showInformationCarousel ( indexOfCarousel );
+
+  /*!
+   * Update the information of my events of the current user
+   */
+  ui->listWidgetEvents->clear ( );
+  showValuesMyEvent ( );
+
+  ///@TODO Remove that because is for UI test only
+  ui->ButtonSubscribe->setVisible ( true );
+  ui->ButtonUnsubscribe->setVisible ( false );
 }
 
 void HomeWindow::onButtonLogOutClicked ( ) {
@@ -288,6 +329,37 @@ void HomeWindow::onButtonDeleteEventClicked ( ) {
   /// DB
 }
 
+void HomeWindow::onEventItemsClicked ( ) {
+
+  /*! The id of the selected event is assigned to a variable */
+  idEventSelected = ui->listWidgetEvents->currentItem ( )->data ( Qt::UserRole );
+
+  /*!
+   *  It is assigned the values ​​brought from the function select event to the object
+   *  type event to be able to call the get function the values ​​return
+   */
+  event = databaseManager.selectEventByIdEvent ( idEventSelected.toInt ( ) );
+  assignValuesEvent ( event );
+
+  /*! The values ​​of the variables are assigned to the labels of the event */
+  ui->labelNameEvent->setText ( nameEvent );
+  ui->labelTypeEvent->setText ( typeEvent );
+  ui->labelDescriptionEvent->setText ( descriptionEvent );
+  ui->labelEventInitialDate->setText ( initialDateEvent );
+  ui->labelEventFinalDate->setText ( finalDateEvent );
+  ui->labelLocationEvent->setText ( provinceEvent + " / " + cantonEvent + " / " + districtEvent );
+  ui->pictureEvent->setPixmap ( imageEvent );
+  ui->labelEventStatus->setText ( eventStatus );
+
+  ui->ButtonSubscribe->setVisible ( false );
+  ui->ButtonUnsubscribe->setVisible ( true );
+  ui->ButtonNext->setVisible ( false );
+  ui->ButtonPrevious->setVisible ( false );
+  ui->labelEventStatus->setVisible ( false );
+  ui->toolButtonLocalEvents->setVisible ( true );
+  ui->groupBoxEvent->setTitle ( "My Events" );
+}
+
 void HomeWindow::onButtonCancelClicked ( ) {
   /*! If the modification of a certain event is canceled all the fields return to the normal state
    * to create a new event */
@@ -310,13 +382,24 @@ void HomeWindow::onButtonCancelClicked ( ) {
   ui->ButtonNewEvent->setVisible ( true );
 }
 
+void HomeWindow::onButtonLocalEventsClicked ( ) {
+  showAvailableEvents ( );
+  ui->ButtonNext->setVisible ( true );
+  ui->ButtonPrevious->setVisible ( true );
+  ui->labelEventStatus->setVisible ( true );
+  ui->toolButtonLocalEvents->setVisible ( false );
+  ui->ButtonSubscribe->setVisible ( true );
+  ui->ButtonUnsubscribe->setVisible ( false );
+  ui->groupBoxEvent->setTitle ( "Local Events" );
+}
+
 void HomeWindow::showInformationCarousel(int i_indexOfCarousel)
 {
     /*!
      *  It is assigned the values ​​brought from the function select event to the object
      *  type event to be able to call the get function the values ​​return
      */
-    event = databaseManager.selectEvent ( i_indexOfCarousel );
+    event = databaseManager.selectEventByIdCarrousel ( i_indexOfCarousel );
 
     assignValuesEvent ( event );
 
@@ -391,4 +474,38 @@ void HomeWindow::assignValuesEvent ( GeneralEvent i_event ) {
   districtEvent = i_event.getDistrictEvent ( );
   locationEvent = i_event.getLocationEvent ( );
   imageEvent = i_event.getImageEvent ( );
+}
+
+void HomeWindow::showValuesMyEvent ( ) {
+  ///@TODO In this function is necessary to call the function SelectMyEvents that is in
+  /// DatabaseManager class and assign it the current user's id session
+  ///@TODO Change the value "idMyEvent" with the id of the event by the DB and change the default
+  /// text of the new item
+  /// with the name of the event by the DB
+  ///@TODO Change the for statement for a while that travels the map that has the information from
+  /// the database
+  ///@TODO Change the image path to the image by DB to the Icon of QListWidgetItem
+  for ( int i = 0; i < 5; i++ ) {
+    QListWidgetItem *newItem = new QListWidgetItem;
+    int idMyEvent = i;
+    newItem->setData ( Qt::UserRole, idMyEvent );
+    newItem->setText ( "My Event " + QString::number ( i ) );
+    newItem->setIcon ( QIcon ( ":/images/eventExample.svg" ) );
+    ui->listWidgetEvents->addItem ( newItem );
+  }
+}
+
+void HomeWindow::showAvailableEvents ( ) {
+  /*! It is initialized with zero because the carousel
+   * will begin with the first position */
+  indexOfCarousel = 0;
+
+  /*! It shows information in the carousel is called and the index value is sent */
+  showInformationCarousel ( indexOfCarousel );
+
+  /*! It shows buttons in the carousel is called and the index value is sent */
+  showButtonsCarousel ( indexOfCarousel );
+
+  ui->listWidgetEvents->clear ( );
+  showValuesMyEvent ( );
 }
