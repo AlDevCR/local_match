@@ -2,6 +2,7 @@
 #define DATABASEMANAGER_H
 
 #include "GeneralEvent.h"
+#include "Activity.h"
 
 /*!
  * It is created to
@@ -22,7 +23,7 @@ class DatabaseManager {
    * It selects the information of the events
    * needed by the home user interface of the events
    */
-  GeneralEvent selectEvent ( int i_index );
+  GeneralEvent selectEvent ( Activity i_activityIndexed,const int i_numberOfEvents );
 
 private:
 

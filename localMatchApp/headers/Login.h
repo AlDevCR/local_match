@@ -11,8 +11,30 @@
 #define LOGIN_H
 
 #include <string>
+#include <unordered_map>
+#include <memory>
+#include <iostream>
+#include "Database.h"
+#include "User.h"
+#include "Activity.h"
+#include "Person.h"
+
 class Login {
  public:
+  std::unordered_map<std::string,Person> personsMap;
+  std::unordered_map<std::string,User> usersMap;
+
+  void updateUsersMap();
+ public:
+  std::unordered_map<std::string,Person> personsMap;
+  std::unordered_map<std::string,User> usersMap;
+
+  void updateUsersMap();
+  std::unordered_map<std::string,Activity> activityMap;
+  std::unordered_map<int,std::string> indexActivityMap;
+  void updateActivityMap();
+  Database conn;
+  std::string actualUser;
   /// Message with the state of the methods "signUp" and "entry".
   enum class ConnectionMessage {
     notEqualPasswords,
@@ -20,14 +42,17 @@ class Login {
     doesntExists,
     invalidUser,
     invalidName,
-    invalidadLastName,
+    invalidLastName,
     wrongPassword
   };
 
-  Login ( );
-
-  ~Login ( );
-  Login ( const Login& ) = default;
+  Login ( const Login& oldLogin){
+    personsMap= oldLogin.personsMap;
+    activityMap= oldLogin.activityMap;
+    indexActivityMap= oldLogin.indexActivityMap;
+    actualUser= oldLogin.actualUser;
+    conn = oldLogin.conn;
+  }
   Login& operator= ( const Login& ) = default;
 
   /** Checks the format of the password when a user wants to sign-up in the

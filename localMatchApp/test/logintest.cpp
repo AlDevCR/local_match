@@ -52,45 +52,54 @@ TEST(LoginTest, TestSignUp){
   std::string emptyUserspace = "";
   std::string emptyNamespace = "";
   std::string emptyLastNamespace = "";
-  std::string sameUser = "Lol2018";
-  std::string newUser = "newUser";
+  std::string sameUser = "Jeod22";
+  std::string newUser = "lola";
   std::string newName = "newName";
   std::string newLastName = "newLastName";
-  std::string goodPass = "Lol2018";
+  std::string goodPass = "unR0ealtron";
   std::string wrongPassGoodFormat = "Il0";
   std::string BadPass = "lol";
 
   EXPECT_EQ ( Login::ConnectionMessage::goodEntry,
               objectOfTest.signUp ( newUser, newName, newLastName, goodPass, goodPass ) );
+  objectOfTest.conn.deleteUserPerson(QString::fromUtf8(newUser.c_str()));
   EXPECT_EQ ( Login::ConnectionMessage::invalidUser,
               objectOfTest.signUp ( sameUser, newName, newLastName, goodPass, goodPass ) );
+
   EXPECT_EQ ( Login::ConnectionMessage::invalidUser,
               objectOfTest.signUp ( emptyUserspace, newName, newLastName, goodPass, goodPass ) );
+
   EXPECT_EQ ( Login::ConnectionMessage::invalidName,
               objectOfTest.signUp ( newUser, emptyNamespace, newLastName, goodPass, goodPass ) );
-  EXPECT_EQ ( Login::ConnectionMessage::invalidadLastName,
+              
+  EXPECT_EQ ( Login::ConnectionMessage::invalidLastName,
               objectOfTest.signUp ( newUser, newName, emptyLastNamespace, goodPass, goodPass ) );
+
   EXPECT_EQ ( Login::ConnectionMessage::wrongPassword,
               objectOfTest.signUp ( newUser, newName, newLastName, BadPass, goodPass ) );
+
   EXPECT_EQ ( Login::ConnectionMessage::wrongPassword,
               objectOfTest.signUp ( newUser, newName, newLastName, goodPass, BadPass ) );
+
   EXPECT_EQ (
       Login::ConnectionMessage::notEqualPasswords,
       objectOfTest.signUp ( newUser, newName, newLastName, goodPass, wrongPassGoodFormat ) );
+
+  objectOfTest.conn.deleteUserPerson(QString::fromUtf8(newUser.c_str()));
 }
 
 /// Check the entry function with all the possible returns.
 TEST(LoginTest, TestEntry){
   Login objectOfTest;
 
-  std::string sameUser = "Lol2018";
+  std::string sameUser = "Jeod22";
   std::string anotherUser = "newUser";
-  std::string goodPass = "Lol2018";
-  std::string basPass = "Il0";
+  std::string goodPass = "Jeod22";
+  std::string badPass = "Il0";
 
   EXPECT_EQ(Login::ConnectionMessage::goodEntry,objectOfTest.entry(sameUser,goodPass));
   EXPECT_EQ(Login::ConnectionMessage::doesntExists,objectOfTest.entry(anotherUser,goodPass));
-  EXPECT_EQ(Login::ConnectionMessage::wrongPassword,objectOfTest.entry(sameUser,basPass));
-  EXPECT_EQ(Login::ConnectionMessage::doesntExists,objectOfTest.entry(anotherUser,basPass));
+  EXPECT_EQ(Login::ConnectionMessage::wrongPassword,objectOfTest.entry(sameUser,badPass));
+  EXPECT_EQ(Login::ConnectionMessage::doesntExists,objectOfTest.entry(anotherUser,badPass));
 
 }
