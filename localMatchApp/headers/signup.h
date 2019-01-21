@@ -19,7 +19,7 @@ class SignUp : public QDialog
     Q_OBJECT
 
  public:
-  explicit SignUp (QWidget *i_parent = nullptr);
+  explicit SignUp (QWidget *i_parent , Login& login);
   ~SignUp ( );
 
   SignUp ( const SignUp& signUp ) = default;

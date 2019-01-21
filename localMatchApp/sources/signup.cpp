@@ -8,10 +8,11 @@
  * In this function is created what is necessary to build
  * the signup screen of the system
  */
-SignUp::SignUp(QWidget *i_parent) :
+SignUp::SignUp(QWidget *i_parent , Login& login) :
     QDialog(i_parent),
     ui(new Ui::SignUp)
 {
+    this->login=login;
     const int FIXEDWIDTHSIGNUPWINDOW = 500;
     const int FIXEDHEIGHTSIGNUPWINDOW = 450;
 
@@ -77,10 +78,10 @@ void SignUp::onNewUserButtonClicked()
       MessageSignUpError = "User is incorrect";
     } else if ( statusSignUp == Login::ConnectionMessage::invalidName ) {
       MessageSignUpError = "Name is incorrect";
-    } else if ( statusSignUp == Login::ConnectionMessage::invalidadLastName ) {
+    } else if ( statusSignUp == Login::ConnectionMessage::invalidLastName ) {
       MessageSignUpError = "Last Name is incorrect";
     } else if ( statusSignUp == Login::ConnectionMessage::wrongPassword ) {
-      MessageSignUpError = "Password is incorrect";
+      MessageSignUpError = "Password is incorrect: Use at least one capital letter, one small letter and one number";
     } else if ( statusSignUp == Login::ConnectionMessage::notEqualPasswords ) {
       MessageSignUpError = "Passwords are not equal";
     }
