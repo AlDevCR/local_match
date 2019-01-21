@@ -5,6 +5,7 @@
 #include <memory>
 #include "DatabaseManager.h"
 #include "GeneralEvent.h"
+#include "QListWidgetItem"
 
 /*!
  * It is created to
@@ -51,6 +52,11 @@ private slots:
  void onButtonSubscribeClicked ( );
 
  /*!
+  * The function when the user click the button of Unsubscribe is declared
+  */
+ void onButtonUnSubscribeClicked ( );
+
+ /*!
   * The function when the user click the button of new image is declared
   */
  void onButtonNewImageClicked ( );
@@ -85,6 +91,17 @@ private slots:
   */
  void onButtonCancelClicked ( );
 
+ /*!
+  * The function when the user click any event of his events to see the information
+  */
+ void onEventItemsClicked ( );
+
+ /*!
+  * The function when the user click the button of local events to see again the carousel
+  * of all available events
+  */
+ void onButtonLocalEventsClicked ( );
+
 private:
  /*! It will be used to be able to use all the graphic
   * interface elements of Home Window */
@@ -99,6 +116,12 @@ private:
 
  /*! It will assign the values of the event in variables */
  void assignValuesEvent ( GeneralEvent i_event );
+
+ /*! It will show the information of my events */
+ void showValuesMyEvent ( );
+
+ /*! It will show the information of available local events */
+ void showAvailableEvents ( );
 
  /*! It saves the value to check if the are no events */
  const int NOEVENTS = 0;
@@ -184,6 +207,9 @@ private:
 
  /*! It saves the list of all districts */
  QStringList listDistricts;
+
+ /*! It saves the value of id event selected in the list widget of events */
+ QVariant idEventSelected;
 
  /*! This variable of type object FunctionsDatabase to use the functions of the database */
  DatabaseManager databaseManager;

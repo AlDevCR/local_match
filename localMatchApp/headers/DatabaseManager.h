@@ -20,12 +20,32 @@ class DatabaseManager {
 
   /*!
    * It selects the information of the events
+   * needed by the home user interface of the events by receiving the id of carrousel
+   */
+  GeneralEvent selectEventByIdCarrousel ( int i_indexCarrousel );
+
+  /*!
+   * It selects the information of the event selected by the user by receiving the id of event
+   */
+  GeneralEvent selectEventByIdEvent ( int i_indexEvent );
+
+  /*!
+   * It selects the information of the events where the user subscribed
    * needed by the home user interface of the events
    */
-  GeneralEvent selectEvent ( int i_index );
+  GeneralEvent selectMyEvents ( int i_userId );
 
-private:
+  /*!
+   * It insert a new event to the user when click the subscribe button
+   */
+  void insertEventToUser ( int i_userId, int i_eventId );
 
+  /*!
+   * It delete the event to the user when click the unsubscribe button
+   */
+  void deleteEventToUser ( int i_userId, int i_eventId );
+
+ private:
   /*! It saves the id of the event */
   int idEvent;
 
