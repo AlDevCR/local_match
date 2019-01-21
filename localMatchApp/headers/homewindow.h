@@ -5,6 +5,7 @@
 #include <memory>
 #include "DatabaseManager.h"
 #include "GeneralEvent.h"
+#include "Login.h"
 
 /*!
  * It is created to
@@ -22,9 +23,9 @@ class HomeWindow : public QDialog
 public:
  /*! Type of the current user using the software */
  enum class TypeOfUser { personalUser, commercialUser, administratorUser };
+ explicit HomeWindow(QWidget *i_parent ,Login& login);
 
- explicit HomeWindow ( QWidget *i_parent = nullptr );
- ~HomeWindow ( );
+ ~HomeWindow();
 
  HomeWindow ( const HomeWindow &homeWindow ) = default;
 
@@ -86,9 +87,10 @@ private slots:
  void onButtonCancelClicked ( );
 
 private:
- /*! It will be used to be able to use all the graphic
-  * interface elements of Home Window */
- std::unique_ptr< Ui::HomeWindow > ui;
+    Login connectionToDatabase;
+    /*! It will be used to be able to use all the graphic
+    * interface elements of Home Window */
+    std::unique_ptr<Ui::HomeWindow> ui;
 
  /*! It will show the information of the event in the carousel */
  void showInformationCarousel ( int i_index );

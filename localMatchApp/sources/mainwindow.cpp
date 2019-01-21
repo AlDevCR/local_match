@@ -48,7 +48,7 @@ void MainWindow::onButtonSignUpClicked()
      * It creates and object of type SignUpWindow and show the
      * window if the user click the button
      */
-    SignUp signUpWindow;
+    SignUp signUpWindow(nullptr, login );
     signUpWindow.setModal(true);
     signUpWindow.exec();
 }
@@ -72,7 +72,7 @@ void MainWindow::onButtonLoginClicked()
    */
   if ( statusLogin == Login::ConnectionMessage::goodEntry ) {
     this->hide ( );
-    HomeWindow homeWindow;
+    HomeWindow homeWindow(nullptr,login);
     homeWindow.setModal ( true );
     homeWindow.exec ( );
     /*!

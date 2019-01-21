@@ -18,6 +18,7 @@ SET(CMAKE_AUTOUIC OFF)
 
 # Find the QtWidgets library
 FIND_PACKAGE(Qt5Widgets CONFIG REQUIRED)
+FIND_PACKAGE(Qt5Sql)
 
 # Include directories of sources and headers
 INCLUDE_DIRECTORIES(sources headers)
@@ -51,7 +52,7 @@ ADD_EXECUTABLE(local_match ${code_SOURCES}
   ${code_FORMS_HEADERS}
   ${code_RESOURCES_RCC})
 
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} Qt5::Widgets)
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} Qt5::Widgets Qt5::Sql)
 
 ###################################################################
 # Gtest section
@@ -69,8 +70,8 @@ find_package(Threads REQUIRED)
 IF ($ENV{GOOGLETEST_DIR})
 		SET(GOOGLETEST_DIR $ENV{GOOGLETEST_DIR})
 ELSE ()
-		MESSAGE(WARNING "Using googletest src dir specified at Qt Creator wizard")
-                SET(GOOGLETEST_DIR "/home/$ENV{USER}/googletest")
+		MESSAGE(WARNING "Using googletest src dir specified in line 74")
+		SET(GOOGLETEST_DIR "/app/googletest")
 ENDIF ()
 
 # If it finds the gtest files, put it in a variable.
@@ -101,5 +102,5 @@ ADD_EXECUTABLE(${TEST_LOCAL_MATCH} ${test_FILES}
 	)
 
 ADD_TEST(${TEST_LOCAL_MATCH} COMMAND ${TEST_LOCAL_MATCH})
-TARGET_LINK_LIBRARIES(${TEST_LOCAL_MATCH} PRIVATE Threads::Threads Qt5::Widgets)
+TARGET_LINK_LIBRARIES(${TEST_LOCAL_MATCH} PRIVATE Threads::Threads Qt5::Widgets Qt5::Sql)
 ###################################################################

@@ -8,17 +8,16 @@
  * It is created all that is necessary
  * to build the main screen of the system
  */
-HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::make_unique<Ui::HomeWindow>() )
+HomeWindow::HomeWindow ( QWidget *i_parent,Login& login ) : QDialog ( i_parent ), ui ( std::make_unique<Ui::HomeWindow>() )
 {
     ui->setupUi(this);
-    ///@TODO Change this default value to the data by DB
+    connectionToDatabase= login;
     /*!
     1 = Personal user
     2 = Commercial user
     3 = Administrator user
     */
-
-    typeUser = 2;
+    typeUser = login.usersMap[login.actualUser].getTypeUserCode().toInt();
 
     if ( typeUser == 1 ) {
       typeOfUser = TypeOfUser::personalUser;
@@ -27,6 +26,15 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     } else if ( typeUser == 3 ) {
       typeOfUser = TypeOfUser::administratorUser;
     }
+    /*! It is initialized with zero because the carousel
+     * will begin with the first position */
+    indexOfCarousel = 0;
+
+    /*! It shows information in the carousel is called and the index value is sent */
+    showInformationCarousel(indexOfCarousel);
+
+    /*! It shows buttons in the carousel is called and the index value is sent */
+    showButtonsCarousel(indexOfCarousel);
 
     /*! If the user type is personal the area of manage event is not visible */
     if ( typeOfUser == TypeOfUser::personalUser ) {
@@ -136,8 +144,7 @@ HomeWindow::HomeWindow ( QWidget *i_parent ) : QDialog ( i_parent ), ui ( std::m
     ui->labelCurrentDateTime->setText (
         QDateTime::currentDateTime ( ).toString ( "dd/MM/yyyy hh:mm" ) );
 
-    ///@TODO Remove the values default and set the data by the DB
-    userName = "[LastName] + [Name]";
+    userName = QString::fromStdString(connectionToDatabase.actualUser);
     ui->labelNameUser->setText (userName);
     ui->labelNameEvent->setStyleSheet ("font-weight: bold;");
     ui->labelEventInitialDate->setStyleSheet (
@@ -198,7 +205,6 @@ void HomeWindow::onButtonLogOutClicked ( ) {
  * In this function, the user interface of the
  * main system screen is destroyed
  */
-
 HomeWindow::~HomeWindow(){}
 
 void HomeWindow::onButtonPreviousClicked()
@@ -312,11 +318,12 @@ void HomeWindow::onButtonCancelClicked ( ) {
 
 void HomeWindow::showInformationCarousel(int i_indexOfCarousel)
 {
+    connectionToDatabase.updateActivityMap();
     /*!
      *  It is assigned the values ​​brought from the function select event to the object
      *  type event to be able to call the get function the values ​​return
      */
-    event = databaseManager.selectEvent ( i_indexOfCarousel );
+    event = databaseManager.selectEvent ( connectionToDatabase.activityMap[connectionToDatabase.indexActivityMap[i_indexOfCarousel]] , connectionToDatabase.indexActivityMap.size() & INT_MAX );
 
     assignValuesEvent ( event );
 

@@ -2,22 +2,13 @@
 #include <iostream>
 
 using namespace std;
-
-Login::Login ( ) {
-  // TODO: Connect to database.
-}
-
-Login::~Login ( ) {
-  // TODO: Disconnect to database.
-}
+Login::Login(){}
 
 Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_name,
                                          const string& i_lastName, const string& i_password,
-                                         const string& i_repeatedPassword ) {
+                                         const string& i_repeatedPassword ) {                                      
   ConnectionMessage signUpConnectionState=ConnectionMessage::goodEntry;
-  // TODO: Send and receive information to database.
-  // This string is just created for debug process
-  string userInDatabase = "Lol2018";
+  updateUsersMap();
 
   if ( !hasCorrectFormat ( i_password ) || !hasCorrectFormat ( i_repeatedPassword ) ) {
     signUpConnectionState= ConnectionMessage::wrongPassword;
@@ -27,7 +18,7 @@ Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_n
     signUpConnectionState=ConnectionMessage::notEqualPasswords;
   }
 
-  else if ( i_user==userInDatabase || i_user.length()==0) {
+  else if ( usersMap.count(i_user)>0 || i_user.length()==0) {
     signUpConnectionState= ConnectionMessage::invalidUser;
   }
 
@@ -36,27 +27,30 @@ Login::ConnectionMessage Login::signUp ( const string& i_user, const string& i_n
   }
 
   else if ( i_lastName.length ( ) == 0 ) {
-    signUpConnectionState = ConnectionMessage::invalidadLastName;
+    signUpConnectionState = ConnectionMessage::invalidLastName;
   }
 
-  // TODO: Set user and password in table.
+  if(signUpConnectionState==ConnectionMessage::goodEntry){
+    conn.addNewUser(QString::fromUtf8(i_user.c_str()),QString::fromUtf8(i_password.c_str()));
+    conn.addNewPerson(QString::fromUtf8(i_user.c_str()),QString::fromUtf8(i_name.c_str()),QString::fromUtf8(i_lastName.c_str()));
+    }
   return signUpConnectionState;
 }
 
 Login::ConnectionMessage Login::entry ( const string& i_user, const string& i_password ) {
   ConnectionMessage signUpConnectionState=ConnectionMessage::goodEntry;
-  // TODO: Search the user and compare password
-  // TODO: Query asking for password based on user
-  // These strings are just created for debug process
-  string userInDatabase = "Lol2018";
-  string passInDatabase = "Lol2018";
+  updateUsersMap();
 
-  if ( i_user != userInDatabase ) {
+  if ( !usersMap.count(i_user)>0 ) {
     signUpConnectionState= ConnectionMessage::doesntExists;
   }
-  else if ( i_password != passInDatabase ) {
+  else if ( i_password != usersMap[i_user].getUserPassword().toStdString() ) {
     signUpConnectionState= ConnectionMessage::wrongPassword;
   }
+  if(signUpConnectionState == ConnectionMessage::goodEntry){
+    actualUser=i_user;
+  }
+  
   return signUpConnectionState;
 }
 
@@ -85,4 +79,55 @@ bool Login::hasCorrectFormat ( const string& i_password ) {
     }
 
   return correctFormat;
+}
+
+void Login::updateUsersMap(){
+  personsMap.clear();
+  QVector<QVector<QString>> personTable = conn.tableFromDB("person");
+  QVector<QString> usersPass = conn.usersPassword();
+  QVector<QVector<QString>> usersTable = conn.tableFromDB("Users");
+
+  for(int index=0; index < usersTable[0].size(); index++){
+      User user;
+      Person person;
+
+      person.setCodePerson(personTable[0][index]);
+      person.setNamePerson(personTable[1][index]);
+      person.setFirstLastName(personTable[2][index]);
+      person.setSecondLastName(personTable[3][index]);
+      person.setBirthDay(personTable[4][index]);
+      person.setUserCode(personTable[5][index]);
+
+      user.setCode(usersTable[0][index]);
+      user.setTypeUserCode(usersTable[3][index]);
+      user.setUserName(usersTable[1][index]);
+      user.setUserPassword(usersPass[index]);
+
+      personsMap.emplace(personTable[5][index].toStdString(),person);
+      usersMap.emplace(usersTable[1][index].toStdString(),user);
+    }
+}
+void Login::updateActivityMap(){
+  activityMap.clear();
+  QVector<QVector<QString>> activityTable = conn.tableFromDB("activity");
+
+  for (int index = 0; index < activityTable[0].size(); index++){
+      Activity activityElement;
+
+      activityElement.setCode(activityTable[0][index]);
+      activityElement.setActivityName(activityTable[1][index]);
+      activityElement.setActivityDescription(activityTable[2][index]);
+      activityElement.setInitialDate(activityTable[3][index]);
+      activityElement.setFinalDate(activityTable[4][index]);
+      activityElement.setDuration(activityTable[5][index]);
+      activityElement.setImageActivity(activityTable[6][index]);
+      activityElement.setRegion(activityTable[7][index]);
+      activityElement.setCanton(activityTable[8][index]);
+      activityElement.setDistrict(activityTable[9][index]);
+      activityElement.setLocation(activityTable[10][index]);
+      activityElement.setActivityTypeCode(activityTable[11][index]);
+
+      activityMap.emplace(activityTable[1][index].toStdString(),activityElement);
+      indexActivityMap.emplace(index,activityTable[1][index].toStdString());
+  }
 }
